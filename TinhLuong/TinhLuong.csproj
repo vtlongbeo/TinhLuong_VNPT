@@ -267,6 +267,7 @@
     <Compile Include="Controllers\ImportCSHT_PTTBController.cs" />
     <Compile Include="Controllers\ImportDoanhThuController.cs" />
     <Compile Include="Controllers\ImportDoanhThuNgoaiController.cs" />
+    <Compile Include="Controllers\ImportDonDichCapDongController.cs" />
     <Compile Include="Controllers\ImportDonDichMangCapDongController.cs" />
     <Compile Include="Controllers\ImportExcelController.cs" />
     <Compile Include="Controllers\ImportHeSoP3Controller.cs" />
@@ -3243,6 +3244,7 @@
     <Folder Include="Assets\FileReports\admin\" />
     <Folder Include="Assets\Uploads\Import\" />
     <Folder Include="Views\Alert\" />
+    <Folder Include="Views\ImportDonDichCapDong\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
