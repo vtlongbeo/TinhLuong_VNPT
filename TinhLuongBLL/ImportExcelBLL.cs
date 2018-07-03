@@ -66,6 +66,11 @@ namespace TinhLuongBLL
         {
             return dal.Delete_LuongKhac(nam, thang, username, Loai,DonViID);
         }
+
+        public bool Delete_LuongKTP(decimal nam, decimal thang, string username, int Loai, string DonViID)
+        {
+            return dal.Delete_LuongKTP(nam, thang, username, Loai, DonViID);
+        }
         public bool Update_LUONGKHAC(decimal Nam, decimal Thang, string UserName, decimal LuongKhac, string NhanSuID,string loailuong)
         {
             return dal.Update_LUONGKHAC(Nam, Thang, UserName, LuongKhac, NhanSuID,loailuong);

@@ -620,5 +620,26 @@ namespace TinhLuongDAL
                 return -1;
             }
         }
+
+        public bool Delete_LuongKTP(decimal nam, decimal thang, string username, int Loai, string donViId)
+        {
+            SqlParameter[] parm = new SqlParameter[]
+             {
+                new SqlParameter("@Nam", nam),
+                new SqlParameter("@Thang", thang),
+                new SqlParameter("@UserName", username),
+                new SqlParameter("@Loai", Loai),
+                new SqlParameter("@DonViID", donViId)
+             };
+            try
+            {
+                SqlHelper.ExecuteNonQuery(SqlHelper.ConnectionString, CommandType.StoredProcedure, "TinhLuongDBTmp_DeleteLuongKTP", parm);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }
