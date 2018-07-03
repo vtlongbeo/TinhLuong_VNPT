@@ -1,0 +1,124 @@
+﻿@using TinhLuongBLL;
+@using TinhLuong.Models;
+@{
+    var credentials = (List<string>)HttpContext.Current.Session[SessionCommon.SESSION_CREDENTIALS];
+}
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts{
+    <script>
+        $(function () {
+            $("#example1").DataTable();
+        });
+
+        $('#btnChotChamCong').click(function () {
+
+            var dataRow = {
+                'thang': $('#drpThang').val(),
+                'nam': $('#drpNam').val(),
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: "/ChamCong/ChotChamCong",
+                data: dataRow,
+                success: function (response) {
+                    alert(response);
+                    location.reload();
+
+                }
+            });
+        });
+
+
+
+
+
+
+
+    </script>
+
+    <script src="~/Assets/js/ChamCong.js"></script>
+    <link href="~/Assets/css/Modal.css" rel="stylesheet" />
+    <style>
+        #example1_filter {
+            float: right;
+        }
+    </style>
+
+
+
+
+
+
+
+
+
+
+}
+<section class="content-header">
+    <h1 style="width:20%; float:left">
+        Chấm công đơn vị
+    </h1>
+    @if (Session[SessionCommon.DonViID].ToString() == "VTT")
+    {
+        @Html.DropDownList("DonViID", ViewBag as SelectList, "-- Chọn đơn vị --", new { @class = "btn btn-default" })
+        @*@Html.DropDownList("TramID", ViewBag as SelectList, new { @class = "btn btn-default" })*@
+    }
+    else
+    {
+        @Html.DropDownList("DonViID", ViewBag as SelectList, new { @class = "btn btn-default hide" })
+    }
+    @Html.DropDownList("drpThang", ViewBag as SelectList, "--Chọn tháng--", new { @class = "btn btn-default" })
+    @Html.DropDownList("drpNam", ViewBag as SelectList, "--Chọn năm--", new { @class = "btn btn-default" })
+    <ol class="breadcrumb" style="float:left">
+        <li><a href="#"><ijk class="fa fa-dashboard"></ijk> Trang chủ</a></li>
+        <li><a href="#">Chấm công</a></li>
+        <li class="active">Chấm công đơn vị</li>
+    </ol>
+    <div class="clear"></div>
+    <center style="margin-top:5px">
+        <button id="btnImportSoLieu" class="btn btn-primary">1.Lấy số liệu</button>
+        <button id="btnInChamCong" class="btn btn-primary">2.In bảng cấm công </button>
+        <button id="btnInChamTrucDem" class="btn btn-primary">3.In bảng chấm trực đêm </button>
+        @if (credentials.Contains("CHOT_CHAMCONG") || Session[SessionCommon.Username].ToString() == "admin")
+        {
+            <button id="btnChotChamCong" class="btn btn-danger">4.Chốt chấm công </button>
+        }
+    </center>
+    <div class="clear"></div>
+
+</section>
+<section class="content-header">
+    <div class="box">
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Mã nhân viên</th>
+                        <th>Tên nhân viên</th>
+                        <th>Ngày công</th>
+                        <th>Trực đêm</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+            </table>
+
+            <div id="myModal" class="modal" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <!-- Modal content-->
+                    <div id="myModalContent">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>
+

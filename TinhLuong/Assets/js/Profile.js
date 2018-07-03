@@ -1,0 +1,1 @@
+﻿$("#btnUpdate").click(function () { var a = "#Avartar".val(), b = $("#HoTen").val(); confirm("Bạn có muốn cập nhật thông tin") ? $.ajax({ type: "POST", url: "/Profile/UpdateInfo", data: '{hoten: "' + b + '",avatar: "' + a + '" }', contentType: "application/json; charset=utf-8", dataType: "html" }) : alert("Bạn phải chọn tháng và năm để xem dữ liệu bảng lương!") });

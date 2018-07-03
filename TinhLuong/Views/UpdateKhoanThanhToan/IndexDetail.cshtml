@@ -1,0 +1,123 @@
+﻿
+
+@model System.Data.DataTable
+@using System.Data;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script>
+        $(function () {
+            $("#example1").DataTable();
+            //$('#example2').DataTable({
+            //    "paging": true,
+            //    "lengthChange": false,
+            //    "searching": false,
+            //    "ordering": true,
+            //    "info": true,
+            //    "autoWidth": false
+            //});
+        });
+
+
+    </script>
+    <script src="~/Assets/js/Updatekhoanthanhtoan.js"></script>
+    <link href="~/Assets/css/Modal.css" rel="stylesheet" />
+    <style>
+        #example1_filter {
+            float: right;
+        }
+    </style>
+
+}
+<section class="content-header">
+
+    <h1 style="width:20%; float:left">
+        Cập nhật các khoản
+    </h1>
+
+    @Html.DropDownList("drpThang", ViewBag as SelectList, "--Chọn tháng--", new { @class = "btn btn-default" })
+    @Html.DropDownList("drpNam", ViewBag as SelectList, "--Chọn năm--", new { @class = "btn btn-default" })
+    <button id="viewSalary" class="btn btn-primary">Xem</button>
+
+
+    <ol class="breadcrumb" style="float:left">
+        <li><a href="#"><ijk class="fa fa-dashboard"></ijk> Trang chủ</a></li>
+        <li><a href="#">Bảng lương</a></li>
+        <li class="active">Cập nhật các khoản</li>
+    </ol>
+
+
+
+
+
+</section>
+<section class="content-header">
+    <div class="box">
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Mã nhân viên</th>
+                        <th>Tên nhân viên</th>
+                        <th>Thuộc đơn vị</th>
+                        <th>Số tài khoản</th>
+                        <th>Tiền ăn ca</th>
+                        <th>CT phí khoán tháng</th>
+                        <th>TT thêm giờ</th>
+                        <th>Tiền chè nước</th>
+                        <th>Công tác phí</th>
+                        <th>Bồi dưỡng K3</th>
+                        <th>Thu nhập 1</th>
+                        <th>Tạm ứng</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @for (int i = 0; i < Model.Rows.Count; i++)
+                    {
+                        <tr>
+                            <td>@(i + 1)</td>
+                            <td>
+                                @Model.Rows[i]["NhanSuID"]
+                            </td>
+                            @*8506205084841*@
+                            <td>@Model.Rows[i]["HoTen"]</td>
+                            <td> @Model.Rows[i]["TenDonVi"]</td>
+                            <td> @Model.Rows[i]["SOTK"]</td>
+                            <td> @(double.Parse(Model.Rows[i]["ANCA"].ToString()).ToString("N0"))</td>
+                            <td> @double.Parse(Model.Rows[i]["CTP_KHOANTH"].ToString()).ToString("N0")</td>
+                            <td> @double.Parse(Model.Rows[i]["TT_THEMGIO"].ToString()).ToString("N0")</td>
+                            <td> @double.Parse(Model.Rows[i]["CHENUOC"].ToString()).ToString("N0")</td>
+                            <td> @double.Parse(Model.Rows[i]["CTP_KHAC"].ToString()).ToString("N0")</td>
+                            <td> @double.Parse(Model.Rows[i]["BOIDUONGK3"].ToString()).ToString("N0")</td>
+                            <td> @double.Parse(Model.Rows[i]["THUNHAP1"].ToString()).ToString("N0")</td>
+                            <td> @double.Parse(Model.Rows[i]["LUONGKY1"].ToString()).ToString("N0")</td>
+                            <td>
+
+
+                                @Html.ActionLink("Chi tiết", "Details", new { NhanSuID = @Model.Rows[i]["NhanSuID"], Thang = @Model.Rows[i]["Thang"], Nam = @Model.Rows[i]["Nam"] }, new { data_modal = "", @class = "btn btn-primary" })
+
+
+                            </td>
+                        </tr>
+                    }
+            </table>
+
+            <div id="myModal" class="modal" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <!-- Modal content-->
+                    <div id="myModalContent">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>
+

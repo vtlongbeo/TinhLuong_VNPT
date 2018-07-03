@@ -1,0 +1,98 @@
+﻿
+
+
+@model System.Data.DataTable
+@using System.Data;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script>
+        $(function () {
+            $("#example1").DataTable();
+        });
+    </script>
+    <link href="~/Assets/css/Modal.css" rel="stylesheet" />
+    <script>
+        function showhide(id) {
+            var e = document.getElementById(id);
+            e.style.display = (e.style.display == 'block') ? 'none' : 'block';
+        }
+        function myFunction() {
+            $("#divLoading").show();
+            window.location.href = "/ImportKKLD/ImportexcelToDb";
+        }
+        function myFunction() {
+            $("#divLoading").show();
+            window.location.href = "/ImportKKLD/ExportExcel";
+        }
+        $("#getData").click(function () {
+            if ($("#drpNam").val() > 0 && $("#drpThang").val() > 0 && $("#drpLoaiFile").val()) {
+                $("#divLoading").show();
+                window.location.href = ("/ImportKKLD/ExportExcel?thang=" + $("#drpThang").val() + "&nam=" + $("#drpNam").val() + "&type=" + $("#drpLoaiFile").val());
+                $("#divLoading").hide();
+            } else {
+                alert("Phải chọn tháng và năm!");
+            }
+        });
+    </script>
+    <style>
+        #example1_filter {
+            float: right;
+        }
+    </style>
+
+}
+<section class="content-header">
+
+    <h1 style="width:20%; float:left">
+        Nhập file
+    </h1>
+    <!--<![endif]-->
+    @using (Html.BeginForm("ImportexcelToDb", "ImportKKLD", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input style="float:left; width:auto" class="btn btn-default" type="file" id="file" name="file">
+        <button type="submit" id="Submit" name="Submit" value="Submit" class="btn btn-primary" onclick="myFunction()">Đọc file</button>
+        <a id="btnBoSung" onclick="showhide('uniquename')" class="btn btn-danger">Xuất file</a>
+    }
+
+    <div class="clear"></div>
+    <div id="uniquename" style="display:none;margin-top:5px">
+        <center>
+            <style>
+                #LoaiBS {
+                    width: 350px;
+                }
+            </style>
+            
+            @Html.DropDownList("drpThang", ViewBag as SelectList, "--Chọn tháng--", new { @class = "btn btn-default" })
+            @Html.DropDownList("drpNam", ViewBag as SelectList, "--Chọn năm--", new { @class = "btn btn-default" })
+            @Html.DropDownList("drpLoaiFile", ViewBag as SelectList, "--Chọn loại file--", new { @class = "btn btn-default" })
+            <button id="getData" class="btn btn-danger">Thực hiện</button>
+
+        </center>
+    </div>
+</section>
+<section class="content-header">
+    <div class="box">
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Dòng</th>
+                        <th>Năm</th>
+                        <th>Tháng</th>
+                        <th>Nhân sự ID</th>
+                        <th>Lương KKLD</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+            </table>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>
+

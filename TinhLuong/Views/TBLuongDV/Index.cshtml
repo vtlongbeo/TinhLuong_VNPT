@@ -1,0 +1,47 @@
+﻿
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script>
+        $("#printLanhDao").click(function () {
+            if (confirm("Bạn thực sự muốn xem danh sách lương lãnh đạo")) {
+                if ($("#drpThang").val() > 0 && $("#drpThang").val() > 0) {
+                    window.open("/TBLuongDV/LuongLanhDaoReport?thang=" + $("#drpThang").val() + "&nam=" + $("#drpNam").val() + "&type=lanhdao", '_blank', "scrollbars=1,resizable=1,height=500,width=700");
+
+                } else {
+                    alert("Phải chọn tháng và năm để xem danh sách lương lãnh đạo");
+                }
+            }
+        });
+        $("#printDonVi").click(function () {
+            if (confirm("Bạn thực sự muốn xem danh sách lương các đơn vị trực thuộc")) {
+                if ($("#drpThang").val() > 0 && $("#drpThang").val() > 0) {
+                    window.open("/TBLuongDV/LuongLanhDaoReport?thang=" + $("#drpThang").val() + "&nam=" + $("#drpNam").val() + "&type=donvi", '_blank' , "scrollbars=1,resizable=1,height=500,width=700");
+
+                } else {
+                    alert("Phải chọn tháng và năm để xem danh sách lương các đơn vị trực thuộc");
+                }
+            }
+        });
+
+    </script>
+}
+<section class="content-header">
+
+    <h1 style="width:20%; float:left">
+        Bảng lương đơn vị
+    </h1>
+    @Html.DropDownList("drpThang", ViewBag as SelectList, "--Chọn tháng--", new { @class = "btn btn-default" })
+    @Html.DropDownList("drpNam", ViewBag as SelectList, "--Chọn năm--", new { @class = "btn btn-default" })
+    <button id="printLanhDao" class="btn btn-primary">Xem lương lãnh đạo</button>
+    <button id="printDonVi" class="btn btn-primary">Xem lương đơn vị</button>
+</section>
+
+<section class="content-header">
+
+    <div class="box"></div>
+</section>
+

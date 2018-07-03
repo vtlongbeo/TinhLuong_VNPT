@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    @*<script>
+        $("#caculatorSalaryBS").click(function () {
+            if (confirm("Bạn thực sự muốn lấy dữ liệu để tính lương bổ sung quý")) {
+                if ($("#drpQuy").val() > 0 & $("#drpNam").val() > 0) {
+                    $("#divLoading").show();
+                    window.location.href = "/TinhLuongBoSungQuy/TinhLuong?thang=" + $("#drpThang").val() + "&nam=" + $("#drpNam").val(); // <- This is what makes it open in a new window.
+                } else {
+                    alert("Phải chọn tháng và năm để tiến hành tính lương");
+                }
+            }
+        });
+
+    </script>*@
+}
+<section class="content-header">
+    <h1>
+        Lấy dữ liệu tính toán bổ sung quý
+    </h1>
+
+</section>
+
+<section class="content-header">
+
+    <div class="box" style="width:60%; margin:auto">
+        @using (Html.BeginForm("TinhLuong", "TinhLuongBoSungQuy", FormMethod.Post))
+    {
+            <div class="form-group">
+                <label for="exampleInputEmail1">Quý</label>
+                <div class="clearfix"></div>
+                @Html.DropDownList("drpQuy", ViewBag as SelectList, "--Chọn quý--", new { @class = "form-control",@required="required" })
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Năm</label>
+                <div class="clearfix"></div>
+                @Html.DropDownList("drpNam", ViewBag as SelectList, "--Chọn năm--", new { @class = "form-control",@required="required" })
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Diễn giải nguồn bổ sung</label>
+                <input type="text" required class="form-control" name="DienGiai">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Tiền nguồn bổ sung</label>
+                <input type="number" required class="form-control" name="NguonBoSung">
+            </div>
+            <button type="submit" class="btn btn-danger" style="float:right" id="savePass" onclick="return confirm('Bạn có chắc chắn muốn thực hiện không?')">Thực hiện</button>
+    }
+    </div>
+</section>

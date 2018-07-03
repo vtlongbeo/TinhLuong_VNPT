@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script>
+        $("#printCongNo").click(function () {
+            if (confirm("Bạn thực sự muốn in danh sách công nợ")) {
+                if ($("#drpThang").val() > 0 & $("#drpThang").val() > 0) {
+                    window.open("/CongNoVTCNTT/LuongKKKTReport?thang=" + $("#drpThang").val() + "&nam=" + $("#drpNam").val() + "&type=print", '_blank', "scrollbars=1,resizable=1,height=500,width=700"); // <- This is what makes it open in a new window.
+                } else {
+                    alert("Phải chọn tháng và năm để xem dữ liệu công nợ");
+                }
+            }
+        });
+    </script>
+}
+<section class="content-header">
+    <h1 style="width:20%; float:left">
+        Công nợ
+    </h1>
+    @Html.DropDownList("drpThang", ViewBag as SelectList, "--Chọn tháng--", new { @class = "btn btn-default" })
+    @Html.DropDownList("drpNam", ViewBag as SelectList, "--Chọn năm--", new { @class = "btn btn-default" })
+    <button id="printCongNo" class="btn btn-primary">In DS công nợ</button>
+</section>
+
+<section class="content-header">
+
+    <div class="box"></div>
+</section>
+

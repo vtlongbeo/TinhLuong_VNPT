@@ -1,0 +1,83 @@
+﻿
+
+
+@model System.Data.DataTable
+@using System.Data;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script>
+        $(function () {
+            $("#example1").DataTable();
+        });
+    </script>
+    <link href="~/Assets/css/Modal.css" rel="stylesheet" />
+    <script>
+        function myFunction() {
+            $("#divLoading").show();
+            window.location.href = "/ImportDoanhThuNgoai/ImportexcelToDb";
+        }
+        function myFunction1() {
+            if (confirm("Bạn có muốn import dữ liệu không?")) {
+                $("#divLoading").show();
+                window.location.href = "/ImportDoanhThuNgoai/ImportDB";
+            }
+        }
+    </script>
+    <style>
+        #example1_filter {
+            float: right;
+        }
+    </style>
+}
+<section class="content-header">
+    <h1 style="width:20%; float:left">
+        Nhập file
+    </h1>
+    <!--<![endif]-->
+    @using (Html.BeginForm("ImportexcelToDb", "ImportDoanhThuNgoai", FormMethod.Post, new { enctype = "multipart/form-data", style = "float:left" }))
+    {
+        <input style="float:left; width:auto" class="btn btn-default" type="file" id="file" name="file">
+        <button type="submit" id="Submit" name="Submit" value="Submit" class="btn btn-primary" onclick="myFunction()">Đọc file</button>
+    }
+    <button type="submit" style="margin-left:5px" id="Import" name="Import" value="Import" class="btn btn-primary" onclick="myFunction1()">Import dữ liệu</button>
+</section>
+<section class="content-header">
+    <div class="box">
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Dòng</th>
+                        <th>Năm</th>
+                        <th>Tháng</th>
+                        <th>Nhân sự ID</th>
+                        <th>Lương KDTM</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @for (int i = 0; i < Model.Rows.Count; i++)
+                    {
+
+                        <tr>
+                            <td>@(i + 1)</td>
+                            <td>
+                                @Model.Rows[i]["Nam"]
+                            </td>
+                            <td>@Model.Rows[i]["Thang"]</td>
+                            <td> @Model.Rows[i]["NhanSuID"]</td>
+                            <td> @(!string.IsNullOrWhiteSpace(Model.Rows[i]["LUONGKDTM"].ToString()) ? double.Parse(Model.Rows[i]["LUONGKDTM"].ToString()).ToString("N0") : "")</td>
+                        </tr>
+                    }
+
+            </table>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>
+
+

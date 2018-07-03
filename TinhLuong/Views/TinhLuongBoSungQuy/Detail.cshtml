@@ -1,0 +1,413 @@
+﻿@using TinhLuong.Models;
+@model System.Data.DataTable
+@using System.Data;
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var credentials = (List<string>
+    )HttpContext.Current.Session[SessionCommon.SESSION_CREDENTIALS];
+}
+@section Scripts{
+
+    <script src="~/Assets/js/mustache.min.js"></script>
+    <script src="~/Assets/js/controller/jquery.twbsPagination.min.js"></script>
+    <script src="~/Assets/js/controller/bsquyController.min.js"></script>
+    <script>
+
+
+        //$(function () {
+        //    $("#tblBSDV").DataTable();
+        //});
+    </script>
+    <style>
+        #example1_paginate, #example22_paginate, #example2_paginate, #tblBSDV_paginate, #example2_filter, #example22_filter, #example1_filter, #tblBSDV_filter {
+            float: right;
+        }
+    </style>
+}
+
+<div class="col-md-12">
+    <section class="content-header" style="width:100%;margin:auto; margin-bottom:10px">
+        <center>
+            @*@Html.DropDownList("drpQuy", ViewBag as SelectList, "--Chọn tháng--", new { @class = "btn btn-default" })*@
+            @Html.DropDownList("drpNam", ViewBag as SelectList, "--Chọn năm--", new { @class = "btn btn-default" })
+            @Html.DropDownList("LoaiBS", ViewBag as SelectList, new { @class = "btn btn-default" })
+            <button id="viewSalary" class="btn btn-primary">Xem</button>
+            @if (credentials.Contains("CHOT_SO"))
+            {
+                <button id="TinhLuongBS" class="btn btn-primary">Tính toán</button>
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#BS">Đẩy BS</button>
+                <button id="XoaLuongBS" class="btn btn-danger">Xóa</button>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Hướng dẫn</button>
+            }
+
+            @*@if (Session[SessionCommon.Username].ToString().ToLower() == "admin")
+                {
+                @Html.ActionLink("Tính toán", "AddNewEmp", new { }, new { data_modal = "", @class = "btn btn-primary" })
+                }*@
+
+        </center>
+
+    </section>
+    <!-- Custom Tabs (Pulled to the right) -->
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs pull-right-container" style="color:black">
+            <li class="pull-left header"><i class="fa fa-th"></i></li>
+            <li class="active"><a href="#tab_4-2" data-toggle="tab">Bảng lương bổ sung Đơn vị</a></li>
+            <li><a href="#tab_2-2" data-toggle="tab">Bảng lương bổ sung Tổ trạm</a></li>
+            <li><a href="#tab_3-2" data-toggle="tab">Bảng lương bổ sung Cá nhân</a></li>
+            <li><a href="#tab_1-1" data-toggle="tab">Bảng lương bổ sung Lãnh đạo</a>
+        </ul>
+        @if (credentials.Contains("CHOT_SO"))
+        {
+               <!-- Modal -->
+            <div id="BS" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-lg">
+
+                    @using (Html.BeginForm("UpLuongBS", "TinhLuongBoSungQuy", FormMethod.Post))
+                {
+                        @Html.AntiForgeryToken()
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Đẩy lương bố sung</h4>
+                            </div>
+                            @{
+                                var rs = new TinhLuongBLL.TinhLuongBoSungQuyBLL().GetTenBS();
+                            }
+                            <div class="modal-body">
+                                <div class="box-body">
+                                    <div class="left">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Quý</label>
+                                            <input type="text" disabled class="form-control" value="@(rs.Rows.Count > 0 ? rs.Rows[0]["Quy"].ToString():"")">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Năm</label>
+                                            <input type="text" disabled class="form-control" value="@(rs.Rows.Count > 0 ? rs.Rows[0]["Nam"].ToString():"")">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Diễn giải</label>
+                                            <input type="text" disabled class="form-control" value="@(rs.Rows.Count > 0 ? rs.Rows[0]["DienGiai"].ToString():"")">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Ngày chuyển khoản</label>
+                                            <input type="date" required class="form-control" name="ngayck">
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-danger" id="savePass" onclick="return confirm('Bạn có chắc chắn muốn đẩy lương bổ sung không?')">Cập nhật</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                            </div>
+                        </div>
+                                }
+
+                </div>
+            </div>
+        <!-- Modal -->
+                                <div id="myModal" class="modal fade" role="dialog">
+                                    <div class="modal-dialog modal-lg">
+
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Hướng dẫn sử dụng</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div>
+                                                    <p>1. Chọn <span style="color:red; font-weight:bold">Năm - Loại bổ sung</span> rồi nhấn nút <span style="color:red; font-weight:bold">XEM</span> để lấy thông số dữ liệu</p>
+                                                    <div style="margin-top:5px; border-bottom:1px solid gray" class="clearfix"></div>
+                                                    <p>2. Chọn từng menu gồm 4 bảng để xem dữ liệu từng bảng</p>
+                                                    <img style="max-width:100%;max-height:100%;" src="~/Assets/HuongDan/menuTable.png" />
+                                                    <div style="margin-top:5px; border-bottom:1px solid gray" class="clearfix"></div>
+                                                    <p>3. Để cập nhật lại dữ liệu ta điền thông số vào ô rồi nhấn <span style="color:red; font-weight:bold">ENTER</span> để cập nhật lại dữ liệu</p>
+                                                    <img style="max-width:100%;max-height:100%;margin:auto" src="~/Assets/HuongDan/tableData.png" />
+                                                    <div style="margin-top:5px; border-bottom:1px solid gray" class="clearfix"></div>
+                                                    <p>4. Tìm kiếm bằng cách gõ bất kỳ từ khóa vào ô để tìm kiếm</p>
+                                                    <p>Ví dụ: ta cần tìm kiếm đơn vị Đinh hóa ta cần gõ từ khóa <span style="color:red; font-weight:bold">DHA hoặc TNN-DHA</span></p>
+                                                    <img style="max-width:100%;max-height:100%;margin-left:30%; border:1px solid red" src="~/Assets/HuongDan/search.png" />
+                                                    <div style="margin-top:5px; border-bottom:1px solid gray" class="clearfix"></div>
+                                                    <p>5. Sau khi cập nhật xong các thông số, vui lòng chọn nút <span style=" color:red; font-weight:bold">Tính Toán</span> để hể thống tính toán thông số lương bổ sung cho từng cá nhân</p>
+                                                    <div style="margin-top:5px; border-bottom:1px solid gray" class="clearfix"></div>
+                                                    <p>6. Nhấn nút <span style=" color:red; font-weight:bold">Xóa</span> để hể thống xóa dữ liệu bổ sung</p>
+                                                    <div style="margin-top:5px; border-bottom:1px solid gray" class="clearfix"></div>
+                                                    <p>7. Để sắp xếp theo thứ tự nhỏ dần, lớn dần hoặc theo bảng chữ cái, nhấn vào ô tiêu đề của từng cột để sắp xếp</p>
+                                                    <img style="max-width:100%;max-height:100%" src="~/Assets/HuongDan/sort.png" />
+                                                    <div style="margin-top:5px; border-bottom:1px solid gray" class="clearfix"></div>
+                                                    <p>8. Sau khi hoàn tất tất cả, chọn nút <span style="color:red; font-weight:bold">Đẩy BS</span> để tiến hành cập nhật ngày chuyển khoản và đẩy dữ liệu vào bảng lương bổ sung chính</p>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                }
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab_4-2">
+                <section class="content-header">
+                    <div class="box">
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <table id="tblBSDV" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Quý</th>
+                                        <th>Năm</th>
+                                        <th>
+                                            Thuộc đơn vị
+                                        </th>
+                                        <th>P3 quý</th>
+                                        <th>Điểm P1</th>
+                                        <th>P1P3</th>
+                                        <th>Nguồn P3 ĐV</th>
+                                        <th>Giảm trừ quỹ lương</th>
+                                        <th>P3 Đv sau giảm trừ</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodyBSDV"></tbody>
+
+                            </table>
+                            @*<div id="pagination1" class="pagination" style="font-size:15px; float:right"></div>*@
+
+
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </section>
+            </div>
+            <!-- /.tab-pane -->
+            <div class="tab-pane" id="tab_2-2">
+                <div class="box">
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="example2" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Quý</th>
+                                    <th>Năm</th>
+                                    <th>
+                                        Đơn vị
+                                    </th>
+                                    <th>
+                                        Tổ trạm
+                                    </th>
+                                    <th>
+                                        Tên tổ trạm
+                                    </th>
+                                    <th>P1 quý</th>
+                                    <th>P1P2 quý</th>
+                                    <th>P13</th>
+                                    <th>Nguồn BS</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyBSDV1"></tbody>
+
+                        </table>
+                        @*<div id="pagination2" class="pagination" style="font-size:15px; float:right"></div>*@
+
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+            <!-- /.tab-pane -->
+            <div class="tab-pane" id="tab_3-2">
+
+
+                <div class="box">
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>
+                                        Đơn vị
+                                    </th>
+                                    <th>
+                                        Tổ trạm
+                                    </th>
+                                    <th>
+                                        Nhân sự
+                                    </th>
+                                    <th>
+                                        Họ tên
+                                    </th>
+                                    <th>P1 quý</th>
+                                    <th>P2 quý</th>
+                                    <th>P3 quý</th>
+                                    <th>P1P2</th>
+                                    <th>P1P2P3</th>
+                                    <th>Số tk</th>
+                                    <th>Tiền bố sung</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyBangThongTin"></tbody>
+
+                        </table>
+                        @*<div id="pagination" class="pagination" style="font-size:15px; float:right"></div>*@
+
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+            <div class="tab-pane" id="tab_1-1">
+                <div class="box">
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="example22" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Quý</th>
+                                    <th>Năm</th>
+                                    <th>Đơn vị</th>
+                                    <th>Tổ trạm</th>
+                                    <th>NhanSuID</th>
+                                    <th>Họ tên</th>
+                                    <th> Bình quân KHTƯ P3 quý</th>
+                                    <th>P3 quý</th>
+                                    <th>Giảm trừ P3 quý</th>
+                                    <th>P3 quý tính bổ sung</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyBSLanhDao"></tbody>
+
+                        </table>
+                        @*<div id="pagination3" class="pagination" style="font-size:15px; float:right"></div>*@
+
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+            <!-- /.tab-pane -->
+        </div>
+        <!-- /.tab-content -->
+    </div>
+    <!-- nav-tabs-custom -->
+</div>
+<script id="NguonBSDV" type="x-tmpl-mustache">
+    <tr>
+        <td>{{STT}}</td>
+        <td>{{Quy}}</td>
+        <td>{{Nam}}</td>
+        <td>{{DonViID}}</td>
+        @if (credentials.Contains("CHOT_SO"))
+            {
+            <td><input type="number" class="P3Quy_BSDV" onkeypress="return update_bangThongTin(event, this, 'P3BSDV')" data-id="{{Quy}}_{{Nam}}_{{DonViID}}_{{LoaiBS}}" value="{{P3Quy}}" /></td>
+        }
+        else
+        {
+            <td>{{P3Quy}}</td>
+        }
+
+        <td>{{DiemP1}}</td>
+        <td>{{P1P3}}</td>
+        <td>{{NguonP3DV}}</td>
+        @if (credentials.Contains("CHOT_SO"))
+            {
+            <td><input type="number" class="GiamTruQuyLuong_BSDV" onkeypress="return update_bangThongTin(event, this, 'GIAMTRUQUYLUONG')" data-id="{{Quy}}_{{Nam}}_{{DonViID}}_{{LoaiBS}}" value="{{GiamTruQuyLuong}}" /></td>
+
+        }
+        else
+        {
+            <td>{{GiamTruQuyLuong}}</td>
+        }
+        <td>{{NguonP3SauGiamTru}}</td>
+    </tr>
+</script>
+<script id="BangThongTin" type="x-tmpl-mustache">
+    <tr>
+        <td>{{STT}}</td>
+        <td>{{DonViChaID}}</td>
+        <td>{{DonViID}}</td>
+        <td>{{NhanSuID}}</td>
+        <td>{{HoTen}}</td>
+        @if (credentials.Contains("CHOT_SO"))
+            {
+            <td><input type="number" style="width:100px" onkeypress="return update_bangThongTin(event, this, 'P1')" class="P1Quy_BangThongTin" data-id="{{Quy}}_{{Nam}}_{{DonViID}}_{{NhanSuID}}_{{LoaiBS}}" value="{{P1TB_Quy}}" /></td>
+            <td><input type="number" style="width:50px" onkeypress="return update_bangThongTin(event, this, 'P2')" class="P2Quy_BangThongTin" data-id="{{Quy}}_{{Nam}}_{{DonViID}}_{{NhanSuID}}_{{LoaiBS}}" value="{{P2TB_Quy}}" /></td>
+            <td><input type="number" style="width:50px" onkeypress="return update_bangThongTin(event, this, 'P3')" class="P3Quy_BangThongTin" data-id="{{Quy}}_{{Nam}}_{{DonViID}}_{{NhanSuID}}_{{LoaiBS}}" value="{{P3TB_Quy}}" /></td>
+
+        }
+        else
+        {
+            <td>{{P1TB_Quy}}</td>
+            <td>{{P2TB_Quy}}</td>
+            <td>{{P3TB_Quy}}</td>
+        }
+        <td>{{P1P2TB_Quy}}</td>
+        <td>{{P1P2P3TB_Quy}}</td>
+        @if (credentials.Contains("CHOT_SO"))
+            {
+            <td><input type="text" style="width:120px" onkeypress="return update_SoTK(event, this)" class="TaiKhoan_BangThongTin" data-id="{{Quy}}_{{Nam}}_{{DonViID}}_{{NhanSuID}}_{{LoaiBS}}" value="{{SoTaiKhoan}}" /></td>
+
+        }
+        else
+        {
+            <td>{{SoTaiKhoan}}</td>
+        }
+        <td>{{TongTienBoSung}}</td>
+    </tr>
+</script>
+<script id="BSDonVi" type="x-tmpl-mustache">
+
+    <tr>
+        <td>{{STT}}</td>
+        <td>{{Quy}}</td>
+        <td>{{Nam}}</td>
+        <td>{{DonViChaID}}</td>
+        <td>{{DonViID}}</td>
+        <td>{{TenDonVi}}</td>
+        <td>{{P1}}</td>
+        <td>{{P1P2}}</td>
+        @if (credentials.Contains("CHOT_SO"))
+            {
+            <td><input type="number" style="width:50px" onkeypress="return update_bangThongTin(event, this, 'P3BoSungDonVi')" class="P3Quy_BoSungDV" data-id="{{Quy}}_{{Nam}}_{{DonViID}}_{{LoaiBS}}" value="{{P3}}" /></td>
+
+        }
+        else
+        {
+            <td>{{P3}}</td>
+        }
+        <td>{{NguonP3BoSung}}</td>
+
+    </tr>
+</script>
+
+<script id="BSLanhDao" type="x-tmpl-mustache">
+
+    <tr>
+        <td>{{STT}}</td>
+        <td>{{Quy}}</td>
+        <td>{{Nam}}</td>
+        <td>{{DonViChaID}}</td>
+        <td>{{DonViID}}</td>
+        <td>{{NhanSuID}}</td>
+        <td>{{HoTen}}</td>
+       
+        <td>{{TienLuongKHP3Quy}}</td>
+        @if (credentials.Contains("CHOT_SO"))
+        {
+            <td><input type="number" style="width:50px" onkeypress="return update_bangThongTin(event, this, 'P3LanhDao')" data-id="{{Quy}}_{{Nam}}_{{DonViID}}_{{NhanSuID}}_{{LoaiBS}}" value="{{P3DonVi}}" /></td>
+            <td><input type="number" style="width:150px" onkeypress="return update_bangThongTin(event, this, 'P3LanhDaoGiamTru')" class="P1P2Quy_BoSungDV" data-id="{{Quy}}_{{Nam}}_{{DonViID}}_{{NhanSuID}}_{{LoaiBS}}" value="{{GiamTruTienP3Quy}}" /></td>
+
+        }
+        else
+        {
+            <td>{{P3DonVi}}</td>
+            <td>{{GiamTruTienP3Quy}}</td>
+        }
+        <td>{{BoSungP3Quy}}</td>
+    </tr>
+</script>

@@ -1,0 +1,114 @@
+﻿
+
+
+@model List<Dm_Group>
+@using TinhLuongINFO;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script>
+        $(function () {
+            $("#example1").DataTable();
+            //$('#example2').DataTable({
+            //    "paging": true,
+            //    "lengthChange": false,
+            //    "searching": false,
+            //    "ordering": true,
+            //    "info": true,
+            //    "autoWidth": false
+            //});
+        });
+
+
+    </script>
+    <script src="~/Assets/js/PhanQuyen.js"></script>
+    <link href="~/Assets/css/Modal.css" rel="stylesheet" />
+    <style>
+        #example1_filter {
+            float: right;
+        }
+    </style>
+
+}
+<section class="content-header">
+
+    <h1 style="width:25%; float:left">
+        Danh mục nhóm quyền
+    </h1>
+    @Html.ActionLink("Thêm mới", "AddNewGroup", new { }, new { data_modal = "", @class = "btn btn-primary" })
+    @*<button id="addNewAcc" class="btn btn-primary">Thêm mới</button>*@
+    <ol class="breadcrumb" style="float:left">
+        <li><a href="#"><ijk class="fa fa-dashboard"></ijk> Trang chủ</a></li>
+        <li class="active"><a href="#">Phân quyền</a></li>
+    </ol>
+
+</section>
+<section class="content-header">
+    <div class="box">
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>GroupID</th>
+                        <th>GroupName</th>
+                        <th width="170px">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <tr>
+                            <td>@(i + 1)</td>
+                            <td>
+                                @Model[i].GroupID
+                            </td>
+                            <td>@Model[i].GroupName</td>
+                            <td>
+                                @{ 
+                                    var link = "/role-group/addnew/id-" + @Model[i].GroupID;
+                                }
+                                <a href="@link" class="btn btn-primary"  >Cấp quyền</a>
+                                @*@Html.ActionLink("Cấp quyền", "AddRole", new { GroupID = @Model[i].GroupID }, new {  @class = "btn btn-primary" })*@
+                                @Ajax.ActionLink("Xóa", "DeleteGroup", new { GroupID = @Model[i].GroupID },
+                                        new AjaxOptions { HttpMethod = "POST", OnSuccess = "onDeleteSuccess" },
+                                        new
+                                        {
+                                            @class = "btn btn-danger",
+                                            id = "delete",
+                                            onclick = "return confirm('Bạn có muốn xóa bản ghi này không?');"
+                                        })
+                            </td>
+                        </tr>
+                    }
+
+
+                    @*<tfoot>
+                            <tr>
+                                <th>STT</th>
+                                <th>Mã nhân viên</th>
+                                <th>Tên nhân viên</th>
+                                <th>Thuộc đơn vị</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </tfoot>*@
+            </table>
+            
+
+            <div id="myModal" class="modal" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div id="myModalContent">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>
+

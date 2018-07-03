@@ -1,0 +1,172 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using TinhLuong.Models;
+using TinhLuongBLL;
+
+namespace TinhLuong.Controllers
+{
+    public class TinhLuong3PsController : BaseController
+    {
+        SaveLog sv = new SaveLog();
+        // GET: TinhLuong3Ps
+        [CheckCredential(RoleID = "TINH_LUONGCNTT")]
+        public ActionResult Index()
+        {
+           // sv.save(Session[SessionCommon.Username].ToString(), "Tinh Luong->Tinh Luong 3Ps");
+            if (Session[SessionCommon.Thang] == null | Session[SessionCommon.nam] == null)
+            {
+                drpNam();
+                drpThang();
+            }
+            else
+            {
+                drpNam(Session[SessionCommon.nam].ToString());
+                drpThang(Session[SessionCommon.Thang].ToString());
+            }
+            return View();
+        }
+
+
+
+        [CheckCredential(RoleID = "TINH_LUONGCNTT")]
+        public ActionResult TinhLuong(int thang, int nam)
+        {
+            Session.Add(SessionCommon.Thang, thang);
+            Session.Add(SessionCommon.nam, nam);
+            try
+            {
+                var check = new ImportExcelBLL().GetChotSo(thang, nam, Session[SessionCommon.DonViID].ToString(), "BangLuong");
+                if (check)
+                {
+                    var outPut = new TinhLuong3PsBLL().UpdateLCN(Session[SessionCommon.DonViID].ToString(), thang, nam);
+                    if (outPut)
+                    {
+                        var outPut1 = new LuongKKKTBLL().ThemMoiTinhLuong_Log(thang, nam, Session[SessionCommon.DonViID].ToString(), DateTime.Now, "Tinh Luong", "BangLuong", "");
+                        if (outPut1)
+                        {
+                            sv.save(Session[SessionCommon.Username].ToString(), "Tinh Luong->Tinh Luong 3Ps->TinhLuong thanh cong-thang-" + thang + "-nam-" + nam);
+                            setAlert("Cập nhật thông số lương thành công", "success");
+                        }
+                        else setAlert("Cập nhật Log thất bại", "error");
+                    }
+                    else
+                    {
+                        sv.save(Session[SessionCommon.Username].ToString(), "Tinh Luong->Tinh Luong 3Ps->TinhLuong that bai-thang-" + thang + "-nam-" + nam);
+                        setAlert("Cập nhật thất bại", "error");
+                    }
+                }
+                else
+                {
+                    sv.save(Session[SessionCommon.Username].ToString(), "Tinh Luong->Tinh Luong 3Ps->TinhLuong that bai do thang luong da chot-thang-" + thang + "-nam-" + nam);
+                    setAlert("Tháng lương đã chốt, không tính lại được!", "error");
+                }
+            }
+            catch
+            {
+                setAlert("Cập nhật thất bại", "error");
+            }
+            return Redirect("/TinhLuong3Ps");
+        }
+
+
+        public void drpThang(string selected = null)
+        {
+            List<SelectListItem> listItems = new List<SelectListItem>();
+            listItems.Add(new SelectListItem
+            {
+                Text = "1",
+                Value = "1"
+            });
+            listItems.Add(new SelectListItem
+            {
+                Text = "2",
+                Value = "2",
+            });
+            listItems.Add(new SelectListItem
+            {
+                Text = "3",
+                Value = "3"
+            });
+            listItems.Add(new SelectListItem
+            {
+                Text = "4",
+                Value = "4"
+            });
+            listItems.Add(new SelectListItem
+            {
+                Text = "5",
+                Value = "5"
+            });
+            listItems.Add(new SelectListItem
+            {
+                Text = "6",
+                Value = "6"
+            });
+            listItems.Add(new SelectListItem
+            {
+                Text = "7",
+                Value = "7"
+            });
+            listItems.Add(new SelectListItem
+            {
+                Text = "8",
+                Value = "8"
+            });
+
+            listItems.Add(new SelectListItem
+            {
+                Text = "9",
+                Value = "9"
+            });
+            listItems.Add(new SelectListItem
+            {
+                Text = "10",
+                Value = "10"
+            });
+            listItems.Add(new SelectListItem
+            {
+                Text = "11",
+                Value = "11"
+            });
+            listItems.Add(new SelectListItem
+            {
+                Text = "12",
+                Value = "12"
+            });
+            ViewBag.drpThang = new SelectList(listItems, "Value", "Text", selected);
+        }
+        public void drpNam(string selected = null)
+        {
+            List<SelectListItem> listItems = new List<SelectListItem>();
+            listItems.Add(new SelectListItem
+            {
+                Text = (DateTime.Now.Year - 2).ToString(),
+                Value = (DateTime.Now.Year - 2).ToString()
+            });
+            listItems.Add(new SelectListItem
+            {
+                Text = (DateTime.Now.Year - 1).ToString(),
+                Value = (DateTime.Now.Year - 1).ToString(),
+            });
+            listItems.Add(new SelectListItem
+            {
+                Text = (DateTime.Now.Year).ToString(),
+                Value = (DateTime.Now.Year).ToString()
+            });
+            listItems.Add(new SelectListItem
+            {
+                Text = (DateTime.Now.Year + 1).ToString(),
+                Value = (DateTime.Now.Year + 1).ToString()
+            });
+            listItems.Add(new SelectListItem
+            {
+                Text = (DateTime.Now.Year + 2).ToString(),
+                Value = (DateTime.Now.Year +2).ToString()
+            });
+            ViewBag.drpNam = new SelectList(listItems, "Value", "Text", selected);
+        }
+    }
+}

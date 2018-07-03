@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    @*<script>
+            $("#caculatorSalaryBS").click(function () {
+                if (confirm("Bạn thực sự muốn lấy dữ liệu để tính lương bổ sung quý")) {
+                    if ($("#drpQuy").val() > 0 & $("#drpNam").val() > 0) {
+                        $("#divLoading").show();
+                        window.location.href = "/TinhLuongBoSungQuy/TinhLuong?thang=" + $("#drpThang").val() + "&nam=" + $("#drpNam").val(); // <- This is what makes it open in a new window.
+                    } else {
+                        alert("Phải chọn tháng và năm để tiến hành tính lương");
+                    }
+                }
+            });
+
+        </script>*@
+}
+<section class="content-header">
+    <h1>
+        Tính lương bổ sung
+    </h1>
+
+</section>
+
+<section class="content-header">
+
+    <div class="box" style="width:60%; margin:auto">
+        @using (Html.BeginForm("TinhLuong", "TinhLuongBS_Ver1", FormMethod.Post))
+        {
+            <div class="form-group">
+                <label for="exampleInputEmail1">Bổ sung Năm</label>
+                <div class="clearfix"></div>
+                @Html.DropDownList("drpNam", ViewBag as SelectList, "--Chọn năm--", new { @class = "form-control", @required = "required" })
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Diễn giải nguồn bổ sung</label>
+                <input type="text" required class="form-control" name="DienGiai">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Ngày chuyển khoản: </label>
+                <input type="date" id="startdate" name="NgayCK" class="btn btn-default"  required/>
+                
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Lấy số tk của tháng lương: </label>
+                @Html.DropDownList("drpThang", ViewBag as SelectList, "--Chọn tháng--", new { @class = "btn btn-default", @required = "required" })
+                @Html.DropDownList("drpNam1", ViewBag as SelectList, "--Chọn năm--", new { @class = "btn btn-default", @required = "required" })
+
+            </div>
+            <button type="submit" class="btn btn-danger" style="float:right" id="savePass" onclick="return confirm('Bạn có chắc chắn muốn thực hiện không?')">Thực hiện</button>
+        }
+    </div>
+</section>

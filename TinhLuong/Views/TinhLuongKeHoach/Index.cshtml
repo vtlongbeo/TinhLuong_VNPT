@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script>
+        //$("#savePassCNTTT").click(function () {
+
+        //    if ($("#drpQuy").val() > 0 & $("#drpNam").val() > 0) {
+        //        if ($("#LoaiLuong").val() == 'LL') {
+        //            $("#divLoading").show();
+        //            window.location.href = "/TinhLuongKH_Fiber/TinhLuong?thang=" + $("#drpThang").val() + "&nam=" + $("#drpNam").val() + "&nam=" + $("#drpNam").val(); // <- This is what makes it open in a new window.
+
+        //        } else {
+        //            alert("Vui lòng chọn tính lương lưu lượng");
+        //        }
+        //    } else {
+        //                alert("Phải chọn tháng và năm để tiến hành tính lương");
+        //            }
+
+        //    });
+
+    </script>
+}
+
+<section class="content-header">
+
+    <h1 style="width:20%; float:left">
+        Tính lương Kế hoạch
+    </h1>
+    @using (Html.BeginForm("TinhLuong", "TinhLuongKeHoach", FormMethod.Post))
+    {
+        @Html.DropDownList("drpThang", ViewBag as SelectList, "--Chọn tháng--", new { @class = "btn btn-default", @required = "required" })
+        @Html.DropDownList("drpNam", ViewBag as SelectList, "--Chọn năm--", new { @class = "btn btn-default", @required = "required" })
+        @Html.DropDownList("LoaiLuong", ViewBag as SelectList, new { @class = "btn btn-default", @required = "required" })
+       
+        <input type="text" required class="btn btn-default" placeholder="Nhập số tiền" name="SoTien">
+        <button type="submit" class="btn btn-danger" style="" id="savePass" onclick="return confirm('Bạn có chắc chắn muốn thực hiện không?')">Thực hiện</button>
+    }
+</section>
+

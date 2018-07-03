@@ -1,0 +1,155 @@
+﻿@using System.Data;
+@using TinhLuong.Models;
+@model System.Data.DataTable
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+@{
+    var credentials = (List<string>)HttpContext.Current.Session[SessionCommon.SESSION_CREDENTIALS];
+}
+<style>
+    .form-group {
+        width: 100%;
+    }
+</style>
+@section Scripts{
+ 
+    }
+@*<div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Thông tin chi tiết</h4>
+        </div>
+        <div class="modal-body">
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" id="savePass" data-dismiss="modal">Cập nhật</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>*@
+@using (Html.BeginForm("UpdateKhoanThanhToan", "UpdateKhoanThanhToan", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Thông tin chi tiết</h4>
+        </div>
+        <div class="modal-body">
+            <div class="box-body">
+                <div class="left" style="width:48%; float:left; margin-left:10px">
+                    <input type="text" class="form-control hidden" id="THUNHAP12" name="THUNHAP12" value="@Model.Rows[0]["THUNHAP12"].ToString()">
+                    <input type="text" class="form-control hidden" id="NhanSuID" name="NhanSuID" value="@Model.Rows[0]["NhanSuID"].ToString()">
+                    <input type="text" hidden="hidden" class="form-control hidden" name="Thang" value="@Model.Rows[0]["Thang"].ToString()">
+                    <input type="text" hidden="hidden" class="form-control hidden" name="Nam" value="@Model.Rows[0]["Nam"].ToString()">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Mã nhân viên</label>
+                        <input type="text" disabled class="form-control" name="NhanSuID" value="@Model.Rows[0]["NhanSuID"].ToString()">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Họ tên</label>
+                        <input type="text" disabled class="form-control" name="HoTen" value="@Model.Rows[0]["HoTen"].ToString()">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Thuộc đơn vị</label>
+                        @Html.DropDownList("DonViID", ViewBag as SelectList, new { @class = "form-control", @disabled= "disabled" })
+                        @* @Html.DropDownList("DonViID", ViewBag.DonViID as SelectList, new { @class = "form-control" })*@
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Số tài khoản</label>
+                         @if (credentials.Contains("NHANTIN")|| Session[SessionCommon.Username].ToString().ToLower() == "admin")
+                         {
+                            <input type="text" class="form-control" name="SOTK" value="@Model.Rows[0]["SOTK"].ToString()">
+
+                         }
+                         else
+                         {
+                            <input type="text" hidden="hidden" class="form-control hidden" name="SOTK" value="@Model.Rows[0]["SOTK"].ToString()">
+                            <input type="text" disabled class="form-control"  value="@Model.Rows[0]["SOTK"].ToString()">
+
+                         }
+
+                         </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Tiền ăn ca</label>
+                        <input type="number" class="form-control" name="ANCA" value="@Model.Rows[0]["ANCA"].ToString()">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Công tác phí khoán tháng</label>
+                        <input type="number" class="form-control" name="CTP_KHOANTH" value="@Model.Rows[0]["CTP_KHOANTH"].ToString()">
+                    </div>
+
+                </div>
+                <div class="center" style="width:48%; float:left;margin-left:30px">
+
+
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Thường trực thêm giờ</label>
+                        <input type="number" class="form-control" name="TT_THEMGIO" value="@Model.Rows[0]["TT_THEMGIO"].ToString()">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Tiền chè nước</label>
+                        <input type="number" class="form-control" name="CHENUOC" value="@Model.Rows[0]["CHENUOC"].ToString()">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Công tác phí khác</label>
+                        <input type="number" class="form-control" name="CTP_KHAC" value="@Model.Rows[0]["CTP_KHAC"].ToString()">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Bồi dưỡng K3</label>
+                        <input type="number" class="form-control" name="BOIDUONGK3" value="@Model.Rows[0]["BOIDUONGK3"].ToString()">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Tiền thanh toán khác</label>
+                        <input type="number" class="form-control" name="THUNHAP1" value="@Model.Rows[0]["THUNHAP1"].ToString()">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Tạm ứng kỳ 1 tháng tiếp theo</label>
+                        <input type="number"  class="form-control" name="LUONGKY1" value="@Model.Rows[0]["LUONGKY1"].ToString()">
+                    </div>
+                </div>
+                @*<div class="right" style="width:30%; float:left; margin-left:30px">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Số ngày công thực tế(NC)</label>
+                        <input type="number"  disabled="disabled" class="form-control" name="NC" value="@Model.Rows[0]["NC"].ToString()">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Số ngày nghỉ phép(NP)</label>
+                        <input type="number"  disabled="disabled" class="form-control" name="NP" value="@Model.Rows[0]["NP"].ToString()">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Số ngày nghỉ việc riêng</label>
+                        <input type="number"  disabled="disabled"  class="form-control" id="NR" name="NR" value="@Model.Rows[0]["NR"].ToString()">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Số ngày nghỉ hưởng BHXH(TS, ốm...)</label>
+                        <input type="number"  disabled="disabled" class="form-control" name="NTS" value="@Model.Rows[0]["NTS"].ToString()">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Tổng ngày công trong tháng </label>
+                        <input type="number"  disabled="disabled" class="form-control" name="TNC" value="@Model[0]["TNC"].ToString()">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Có chuyển khoản qua ngân hàng không</label>
+                        <input type="number"   class="form-control" name="THUNHAP12" value="@Model.Rows[0]["THUNHAP12"].ToString()">
+                    </div>
+                   
+                </div>*@
+
+
+            </div>
+        </div>
+        <div class="modal-footer">
+           @if (credentials.Contains("BANG_LUONGKY1") || Session[SessionCommon.Username].ToString().ToLower() == "admin")
+           {
+            <button type="submit" class="btn btn-danger" id="savePass" onclick="return confirm('Bạn có chắc chắc muốn cập nhật lại thông tin không?')" >Cập nhật</button>
+
+           }
+           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+}
+
+

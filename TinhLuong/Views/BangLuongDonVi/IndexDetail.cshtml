@@ -1,0 +1,81 @@
+﻿
+@using TinhLuong.Models;
+@model System.Data.DataTable
+@using System.Data;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script>
+        $(function () {
+            $("#example1").DataTable();
+        });
+    </script>
+    <script src="~/Assets/js/BangLuongDonVi.js"></script>
+    <link href="~/Assets/css/Modal.css" rel="stylesheet" />
+    <style>
+        #example1_filter {
+            float: right;
+        }
+    </style>
+}
+<section class="content-header">
+    <h1 style="width:20%; float:left">
+        Bảng lương đơn vị
+    </h1>
+    @Html.DropDownList("drpThang", ViewBag as SelectList, "--Chọn tháng--", new { @class = "btn btn-default" })
+    @Html.DropDownList("drpNam", ViewBag as SelectList, "--Chọn năm--", new { @class = "btn btn-default" })
+    <button id="viewSalary" class="btn btn-primary">Xem</button>
+    @if (Session[SessionCommon.Username].ToString().ToLower() == "admin")
+    {
+        @Html.ActionLink("Thêm mới", "AddNewEmp", new { }, new { data_modal = "", @class = "btn btn-primary" })
+    }    <ol class="breadcrumb" style="float:left">
+        <li><a href="#"><ijk class="fa fa-dashboard"></ijk> Trang chủ</a></li>
+        <li><a href="#">Bảng lương</a></li>
+        <li class="active">Bảng lương đơn vị</li>
+    </ol>
+</section>
+<section class="content-header">
+    <div class="box">
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Mã nhân viên</th>
+                        <th>Tên nhân viên</th>
+                        <th>Thuộc đơn vị</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Rows.Count; i++)
+                    {
+                        <tr>
+                            <td>@(i + 1)</td>
+                            <td>
+                                @Model.Rows[i]["NhanSuID"]
+                            </td>
+                            <td>@Model.Rows[i]["HoTen"]</td>
+                            <td> @Model.Rows[i]["TenDonVi"]</td>
+                            <td>
+                                @Html.ActionLink("Chi tiết", "Details", new { NhanSuID = @Model.Rows[i]["NhanSuID"], Thang = @Model.Rows[i]["Thang"], Nam = @Model.Rows[i]["Nam"] }, new { data_modal = "", @class = "btn btn-primary" })
+                            </td>
+                        </tr>
+                    }
+            </table>
+            <div id="myModal" class="modal" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <!-- Modal content-->
+                    <div id="myModalContent">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>
+

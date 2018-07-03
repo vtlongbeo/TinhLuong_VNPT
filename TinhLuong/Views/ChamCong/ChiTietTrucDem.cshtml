@@ -1,0 +1,186 @@
+﻿
+@{
+    ViewBag.Title = "ChiTietTrucDem";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts{
+    <link rel="stylesheet" href="~/Content/fullcalendar.css" />
+    @*<script src="~/Scripts/lib/jquery.min.js"></script>*@
+    <script type="text/javascript" src="~/Scripts/lib/moment.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/fullcalendar.js"></script>
+
+
+
+    <script>
+        var date = new Date();
+
+            var d = 1;
+            var m = @Model.Rows[0]["Thang"].ToString();
+            var y = @Model.Rows[0]["Nam"].ToString();
+        $(document).ready(function () {
+
+
+
+            //var sourceFullView = { url: '/Home/GetDiaryEvents/' };
+            //var sourceSummaryView = { url: '/Home/GetDiarySummary/' };
+            var CalLoading = true;
+
+            $('#calendar').fullCalendar({
+                defaultDate: moment(y+"-"+m+"-"+d),
+                defaultView: 'month',
+                events: {
+                    url: '/ChamCong/GetEvents/',
+                    type: 'POST',
+                    data: {
+                        NhanVienID: $('#NhanVienID').val(),
+                        thang: $('#thang').val(),
+                        nam: $('#nam').val(),
+                        TrucDem: '1'
+                    },
+                    error: function () {
+                        alert('không lấy được dữ liệu!');
+                    }
+                },
+                eventClick: function (calEvent, jsEvent, view) {
+
+                    ShowEventPopup(calEvent);
+                    $('#NgayCong').val(calEvent.start.format('YYYY-MM-DD'));
+                    $('#MaChamCong').val(calEvent.MaChamCong);
+                    $('#eventNote').val(calEvent.note)
+
+                },
+
+                dayClick: function (date, allDay, jsEvent, view) {
+                    $('#eventTitle').val("");
+
+                    ShowEventPopup(date);
+                    $('#NgayCong').val(moment(date).format('YYYY-MM-DD'));
+                    $('#MaChamCong').val('X');
+                }
+            });
+
+            CalLoading = false;
+
+
+        });
+
+        $('#btnPopupSave').click(function () {
+
+            $('#popupEventForm').hide();
+
+            var dataRow = {
+                'MaChamCong': $('#MaChamCong').val(),
+                'NhanVienID': $('#NhanVienID').val(),
+                'NgayCong': $('#NgayCong').val(),
+                'Note': $('#eventNote').val(),
+                'TrucDem': '1',
+                'thang': $('#thang').val()
+            }
+
+            ClearPopupFormValues();
+
+            $.ajax({
+                type: 'POST',
+                url: "/ChamCong/UpdateChamCong",
+                data: dataRow,
+                success: function (response) {
+                    if (response == 'True') {
+                        $('#calendar').fullCalendar('refetchEvents');
+                        alert('Cập nhật thành công!');
+                    }
+                    else {
+                        alert('Có lỗi ! cập nhật không thành công!');
+                    }
+                }
+            });
+        });
+
+
+        function UpdateEvent(EventID, EventStart, EventEnd) {
+
+            var dataRow = {
+                'ID': EventID,
+                'NewEventStart': EventStart,
+                'NewEventEnd': EventEnd
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: "/Home/UpdateEvent",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(dataRow)
+            });
+        }
+
+        function ClearPopupFormValues() {
+            $('#eventNote').val("");
+            $('#NgayCong').val("");
+        }
+
+
+        function ShowEventPopup(date) {
+            ClearPopupFormValues();
+            $('#popupEventForm').show();
+            $('#eventNote').focus();
+        }
+
+        $('#btnPopupCancel').click(function () {
+            ClearPopupFormValues();
+            $('#popupEventForm').hide();
+        });
+        $('#fc-toolbar').hidden();
+    </script>
+
+}
+
+
+<section class="content-header">
+    <h1 style="width:100%; float:left">
+        Bảng chấm trực đêm nhân viên @Model.Rows[0]["HoTen"].ToString()
+    </h1>
+    <a href="/cham-cong-don-vi/DonViID-@Model.Rows[0]["DonVIID"].ToString().Replace("-","_")-thang-@Model.Rows[0]["Thang"].ToString()-nam-@Model.Rows[0]["Nam"].ToString()" class="btn btn-danger">Quay lại</a>
+</section>
+<section class="content-header">
+    <div id="calendar" style="width:90%"></div>
+</section>
+
+<div id="popupEventForm" class="modal" style="display: none;">
+    <div style="width:60%;margin: 50px auto;" class="modal-content">
+        <div class="modal-body">
+            <div class="box-body">
+                <div class="left" style="width:30%; float:left; margin-left:10px">
+
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Ngày</label>
+                        <input type="text" class="form-control" readonly name="NgayCong" id="NgayCong">
+                    </div>
+
+                </div>
+                <div class="left" style="width:65%; float:left; margin-left:10px">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Loại Ngày</label>
+                        @Html.DropDownList("MaChamCong", ViewBag as SelectList, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group hide">
+                        <label for="exampleInputPassword1">Ghi Chú</label>
+                        <input type="text" class="form-control" name="eventNote" id="eventNote">
+                    </div>
+                    <div class="form-group hide">
+                        <label for="exampleInputPassword1">Nhân Viên</label>
+                        <input type="text" class="form-control" readonly name="NhanVienID" id="NhanVienID" value="@Model.Rows[0]["NhanVienID"].ToString()">
+                        <input type="text" class="form-control" readonly name="thang" id="thang" value="@Model.Rows[0]["Thang"].ToString()">
+                        <input type="text" class="form-control" readonly name="nam" id="nam" value="@Model.Rows[0]["Nam"].ToString()">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="btnPopupCancel" data-dismiss="modal" class="btn">Hủy</button>
+            <button type="button" id="btnPopupSave" data-dismiss="modal" class="btn btn-primary">Lưu</button>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,98 @@
+﻿
+@model List<Group_Right>
+@using TinhLuongINFO;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script>
+        $(function () {
+            $("#example1").DataTable();
+            //$('#example2').DataTable({
+            //    "paging": true,
+            //    "lengthChange": false,
+            //    "searching": false,
+            //    "ordering": true,
+            //    "info": true,
+            //    "autoWidth": false
+            //});
+        });
+    </script>
+    <script src="~/Assets/js/AdminRole.js"></script>
+    <link href="~/Assets/css/Modal.css" rel="stylesheet" />
+    <style>
+        #example1_filter {
+            float: right;
+        }
+    </style>
+
+}
+<section class="content-header">
+
+    <h1>
+        Danh mục quyền <small style="color:red; font-weight:bold">@ViewBag.GroupName</small>
+    </h1>
+   @*<button id="addNewAcc" class="btn btn-primary">Thêm mới</button>*@
+    <ol class="breadcrumb" style="float:left">
+        <li><a href="#"><ijk class="fa fa-dashboard"></ijk> Trang chủ</a></li>
+        <li class="active"><a href="/role-group">Phân quyền</a></li>
+    </ol>
+
+</section>
+<section class="content-header">
+    <div class="box">
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Right Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <tr>
+                            <td>@(i + 1)</td>
+                            <td>
+                            @if(ViewBag.RoleGroupID.Contains(Model[i].RightID))
+                            {
+                            <input style="margin-left:50px" checked type="checkbox" data-rightid="@Model[i].RightID" /> @Model[i].RightName
+                            <br />
+                            }
+                            else
+                            {
+                                <input style="margin-left:50px" type="checkbox" data-rightid="@Model[i].RightID" /> @Model[i].RightName
+                                <br />
+                            }
+                        </tr>
+                    }
+
+
+                    @*<tfoot>
+                            <tr>
+                                <th>STT</th>
+                                <th>Mã nhân viên</th>
+                                <th>Tên nhân viên</th>
+                                <th>Thuộc đơn vị</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </tfoot>*@
+            </table>
+            <a href="/role-group" class="btn btn-danger">Quay lại</a>
+            <div id="myModal" class="modal" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div id="myModalContent">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>
+

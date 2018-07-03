@@ -1,0 +1,52 @@
+﻿@using TinhLuongINFO;
+@using TinhLuongBLL;
+@model DM_Users
+<nav class="navbar navbar-static-top" style="height:30px">
+    <!-- Sidebar toggle button-->
+
+    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </a>
+    @{
+        var ngaythang = new HomeBLL().Tuyen_GetCurrentDate();
+    }
+
+    <p style="color:white; font-size:15px;float:left; margin-top:5px">@ngaythang.Rows[0]["Thu"].ToString(), @ngaythang.Rows[0]["NgayThang"].ToString()</p>
+    <div style="position: absolute;top: 5px;left: 15%;right: 10%; color:whitesmoke; line-height:normal; font-size:15px;font-family: 'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;">
+        <marquee scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">&#9743 Hỗ trợ trực tuyến: <span style="font-weight:bold;"> 0208.858360</span> |&#9758 Cao Anh Thư: <span style="font-weight:bold;">0915.209.666</span> - <a target="_blank" href="skype:anhthuvttn?chat"><i  class="fa fa-skype" style="color:white"></i></a> |&#9758 Nguyễn Văn Tuyến: <span style="font-weight:bold;">0944.535.454</span> - <a target="_blank" href="skype:live:387fa081458be6a?chat""><i  class="fa fa-skype" style="color:white"></i></a>  </marquee>
+       </div>
+
+    <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+            <li class="dropdown user user-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <img src="@Model.Avartar" class="user-image" alt="User Image">
+                    <span class="hidden-xs">@Model.UserName</span>
+                </a>
+                <ul class="dropdown-menu">
+                    <!-- User image -->
+                    <li class="user-header">
+                        <img src="@Model.Avartar" class="img-circle" alt="User Image">
+                        <p>
+                            @Model.UserName
+                            <small>@Model.TenDonVi</small>
+                        </p>
+                    </li>
+                    <div style="border-bottom:1px solid #fff"></div>
+                    <!-- Menu Footer-->
+                    <li class="user-footer" style="background-color:#3C8DBC">
+                        <div class="pull-left">
+                            <button id="btnChangPass" class="btn btn-danger btn-flat" data-toggle="modal" data-target="#modelChangePass">Đổi mật khẩu</button>
+                        </div>
+                        <div class="pull-right">
+                            <a href="/login/logout" class="btn btn-default btn-flat">Đăng xuất</a>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>

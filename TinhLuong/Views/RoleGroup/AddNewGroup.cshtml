@@ -1,0 +1,52 @@
+﻿
+
+@{
+    ViewBag.Title = "AddNewGroup";
+    Layout = null;
+}
+<style>
+    .form-group {
+        width: 100%;
+    }
+</style>
+@*<div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Thông tin chi tiết</h4>
+        </div>
+        <div class="modal-body">
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" id="savePass" data-dismiss="modal">Cập nhật</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>*@
+@using (Html.BeginForm("AddNewGroup", "RoleGroup", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Thêm mới</h4>
+        </div>
+        <div class="modal-body">
+            <div class="box-body">
+                <div class="left">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Group Name</label>
+                        <input type="text" required class="form-control" name="GroupName">
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-danger" id="savePass" onclick="return confirm('Bạn có chắc chắn muốn thêm mới bản ghi không?')">Thêm mới</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+        </div>
+    </div>
+}
+
+
+

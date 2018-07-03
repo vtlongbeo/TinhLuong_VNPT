@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "BaoCaoChamCong";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts{
+    <script>
+        $(function () {
+            $("#example1").DataTable();
+        });
+    </script>
+
+    <script src="~/Assets/js/ChamCong.js"></script>
+    <link href="~/Assets/css/Modal.css" rel="stylesheet" />
+    <style>
+        #example1_filter {
+            float: right;
+        }
+    </style>
+}
+<section class="content-header">
+    <h1 style="width:100%; float:left">
+        Bảng chẩm công đơn vị
+    </h1>
+    <ol class="breadcrumb" style="float:left">
+        
+        <li><a href="#"><ijk class="fa fa-dashboard"></ijk> Trang chủ</a></li>
+        <li><a href="#">Chấm công</a></li>
+        <li class="active">Bảng chẩm công đơn vị</li>
+    </ol>
+
+
+
+</section>
+<section class="content-header">
+    <hr/>
+  @Html.DropDownList("DonViID", ViewBag as SelectList, new { @class = "btn btn-default" })
+@Html.DropDownList("drpThang", ViewBag as SelectList, "--Chọn tháng--", new { @class = "btn btn-default" })
+@Html.DropDownList("drpNam", ViewBag as SelectList, "--Chọn năm--", new { @class = "btn btn-default" })
+<button id="btnChotChamCong" class="btn btn-primary">2.Chốt chấm công </button>
+</section>

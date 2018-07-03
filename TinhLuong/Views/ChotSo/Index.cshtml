@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script>
+        $(function () {
+            $("#example1").DataTable();
+            //$('#example2').DataTable({
+            //    "paging": true,
+            //    "lengthChange": false,
+            //    "searching": false,
+            //    "ordering": true,
+            //    "info": true,
+            //    "autoWidth": false
+            //});
+        });
+    </script>
+    <script src="~/Assets/js/Cass_ChotSo.js"></script>
+    <link href="~/Assets/css/Modal.css" rel="stylesheet" />
+    <style>
+        #example1_filter {
+            float: right;
+        }
+    </style>
+}
+<section class="content-header">
+    <h1 style="width:15%;float:left">
+        Chốt sổ
+    </h1>
+    @Html.DropDownList("drpThang", ViewBag as SelectList, "--Chọn tháng--", new { @class = "btn btn-default" })
+    @Html.DropDownList("drpNam", ViewBag as SelectList, "--Chọn năm--", new { @class = "btn btn-default" })
+    @Html.DropDownList("DonViID", ViewBag as SelectList, "--Chọn đơn vị--", new { @class = "btn btn-default" })
+    @Html.DropDownList("DmBangLuong", new SelectList(string.Empty, "BangID", "BangID"), "--Chọn loại lương--", new { @class = "btn btn-default" })
+    
+     <button id="viewSalary" class="btn btn-primary">Xem</button>
+     <button id="chotSo" class="btn btn-primary">Mở sổ</button>
+    <input type="checkbox" class="danger" id="checkboxChotSo" style="width:20px; height:20px; text-align:center; margin:5px; background:red" /><label id="lblThongBao"></label>
+
+    @*<ol class="breadcrumb">
+        <li><a href="#"><ijk class="fa fa-home"></ijk> Trang chủ</a></li>
+        <li><a href="#">Chốt sổ</a></li>
+    </ol>*@
+</section>
+<section class="content-header">
+    <div class="box">
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Mã nhân viên</th>
+                        <th>Tên nhân viên</th>
+                        <th>Thuộc đơn vị</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+            </table>
+            <div id="myModal" class="modal" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <!-- Modal content-->
+                    <div id="myModalContent">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>
+

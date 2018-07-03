@@ -1,0 +1,88 @@
+﻿
+@using TinhLuong.Models;
+@model System.Data.DataTable
+@using System.Data;
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var credentials = (List<string>
+    )HttpContext.Current.Session[SessionCommon.SESSION_CREDENTIALS];
+}
+@section Scripts{
+
+    <script src="~/Assets/js/mustache.min.js"></script>
+    <script src="~/Assets/js/controller/jquery.twbsPagination.min.js"></script>
+    <script src="~/Assets/js/controller/ChotSoBSQ.js"></script>
+    <script>
+
+
+        //$(function () {
+        //    $("#tblBSDV").DataTable();
+        //});
+    </script>
+    <style>
+        #example1_paginate, #example22_paginate, #example2_paginate, #tblBSDV_paginate, #example2_filter, #example22_filter, #example1_filter, #tblBSDV_filter {
+            float: right;
+        }
+    </style>
+}
+
+
+<div class="col-md-12">
+    <section class="content-header">
+        <h1 style="width:25%; float:left">
+            Chốt sổ lương bổ sung
+        </h1>
+        @Html.DropDownList("drpNam", ViewBag as SelectList, "--Chọn năm--", new { @class = "btn btn-default" })
+        <button id="viewChotSo" class="btn btn-primary">Xem</button>
+
+    </section>
+    <!-- Custom Tabs (Pulled to the right) -->
+    <div class="nav-tabs-custom">
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab_4-2">
+                <section class="content-header">
+                    <div class="box">
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <table id="tblBSDV" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Năm</th>
+                                        <th>Loại BS</th>
+                                        <th>
+                                            Diễn Giải
+                                        </th>
+                                        <th>Trạng thái</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodyChotSo"></tbody>
+
+                            </table>
+                            @*<div id="pagination1" class="pagination" style="font-size:15px; float:right"></div>*@
+
+
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </section>
+            </div>
+
+            <!-- /.tab-pane -->
+        </div>
+        <!-- /.tab-content -->
+    </div>
+    <!-- nav-tabs-custom -->
+</div>
+<script id="ChotSoBS" type="x-tmpl-mustache">
+    <tr>
+        <td>{{STT}}</td>
+        <td>{{Nam}}</td>
+        <td>{{LoaiBS}}</td>
+        <td>{{DienGiai}}</td>
+        <td>{{{TrangThai}}}</td>
+    </tr>
+</script>

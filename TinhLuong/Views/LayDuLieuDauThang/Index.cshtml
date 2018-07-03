@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script>
+        $("#caculatorSalary3Ps").click(function () {
+            if (confirm("Bạn thực sự muốn lấy dữ liệu cho tháng " + $("#drpThang").val() + " năm " + $("#drpNam").val() + " không?")) {
+                if ($("#drpNam").val() > 0 & $("#drpThang").val() > 0) {
+                    $("#divLoading").show();
+                    window.location.href = "/LayDuLieuDauThang/TinhLuong?thang=" + $("#drpThang").val() + "&nam=" + $("#drpNam").val(); // <- This is what makes it open in a new window.
+                } else {
+                    alert("Phải chọn tháng và năm để tiến hành tính lương");
+                }
+            }
+        });
+       
+            
+
+    </script>
+<script src="~/Assets/js/DLDAUTHANG.js"></script>
+}
+<section class="content-header">
+
+    <h1 style="width:30%; float:left">
+        Cập nhật dữ liệu đầu tháng
+    </h1>
+@using (Html.BeginForm("TinhLuong", "LayDuLieuDauThang", FormMethod.Post))
+{
+    @Html.DropDownList("drpThang", ViewBag as SelectList, "--Chọn tháng--", new { @class = "btn btn-default", @required= "required" })
+    @Html.DropDownList("drpNam", ViewBag as SelectList, "--Chọn năm--", new { @class = "btn btn-default", @required = "required" })
+    <div class="btn btn-default">
+        <input style="width:200px" id="NC" type="number" min="1" max="31" value="0" placeholder="Ngày công trong tháng" required class="form-control" name="NC">
+    </div>
+
+    <button type="submit" class="btn btn-danger" id="savePass" onclick="return confirm('Bạn có chắc chắn muốn tiếp tục?')">Cập nhật</button>
+
+}
+</section>
+
+<section class="content-header">
+
+    <div class="box"></div>
+</section>

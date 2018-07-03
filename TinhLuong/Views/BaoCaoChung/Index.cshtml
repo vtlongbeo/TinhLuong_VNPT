@@ -1,0 +1,105 @@
+﻿@using TinhLuong.Models;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var credentials = (List<string>)HttpContext.Current.Session[SessionCommon.SESSION_CREDENTIALS];
+}
+@section Scripts{
+    <script>
+        $(function () {
+            $("#example1").DataTable();
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false
+            });
+        });
+    </script>
+    <script src="~/Assets/js/Cass_BaoCaoChung.js"></script>
+    <link href="~/Assets/css/Modal.css" rel="stylesheet" />
+    <style>
+        #example1_filter {
+            float: right;
+        }
+    </style>
+}
+<section class="content-header">
+    <h1 style="margin-right:5px;">
+        Thống kê
+    </h1>
+    <ol class="breadcrumb" >
+        <li><a href="#"><ijk class="fa fa-home"></ijk> Trang chủ</a></li>
+        <li><a href="#">Bảng lương đơn vị</a></li>
+    </ol>
+   <center>
+       @Html.DropDownList("drpThang", ViewBag as SelectList, "--Chọn tháng--", new { @class = "btn btn-default" })
+       @Html.DropDownList("drpNam", ViewBag as SelectList, "--Chọn năm--", new { @class = "btn btn-default" })
+       @Html.DropDownList("DonViID", ViewBag as SelectList, new { @class = "btn btn-default" })
+       @Html.DropDownList("Tram", ViewBag as SelectList, new { @class = "btn btn-default" })
+       @Html.DropDownList("NhanVien", ViewBag as SelectList, new { @class = "btn btn-default" })
+       <div class="clear"></div>
+       <center style="margin-top:5px">
+           @if (credentials.Contains("NHANTIN"))
+           {
+               <button id="btnBoSung" onclick="showhide('uniquename')" class="btn btn-danger">Nhắn tin</button>
+           }
+           <button id="viewSalary" class="btn btn-primary">Xem</button>
+           <button id="reportSalary" class="btn btn-primary">In quyết toán</button>
+           <button id="reportKy1" class="btn btn-primary">Xem, In Kỳ 1</button>
+           <button id="reportPTTB" class="btn btn-primary">Xem, In PTTB</button>
+           <button id="reportKKLD" class="btn btn-primary">Xem, In KKLD</button>
+           @if (credentials.Contains("IN_LUONG_CK"))
+           {
+               <button id="reportBank" class="btn btn-primary">Chuyển khoản kỳ 1</button>
+               <button id="reportBankQT" class="btn btn-primary">Chuyển khoản QT</button>
+           }
+       </center>
+       <div class="clear"></div>
+       @if (credentials.Contains("NHANTIN"))
+       {
+           <div id="uniquename" style="display:none;margin-top:5px">
+               <center>
+                   <style>
+                       #LoaiBS {
+                           width: 350px;
+                       }
+                   </style>
+                   <button id="smsKy1" class="btn btn-danger">Nhắn tin kỳ 1</button>
+                   <button id="smsQT" class="btn btn-danger">Nhắn tin QT</button>
+               </center>
+           </div>
+       }
+   </center>
+    
+</section>
+<section class="content-header">
+    <div class="box">
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Mã nhân viên</th>
+                        <th>Tên nhân viên</th>
+                        <th>Thuộc đơn vị</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <div id="myModal" class="modal" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <!-- Modal content-->
+                    <div id="myModalContent">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>
+

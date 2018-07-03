@@ -1,0 +1,148 @@
+﻿@using System.Data;
+@model System.Data.DataTable
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+<style>
+    .form-group {
+        width: 100%;
+    }
+</style>
+@using (Html.BeginForm("AddNewEmp", "BangLuongDonVi", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Thêm mới</h4>
+        </div>
+        <div class="modal-body">
+            <div class="box-body">
+                <div class="left" style="width:30%; float:left; margin-left:10px">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Năm </label><span class="cke_required">*</span>
+                        @Html.DropDownList("Nam", ViewBag as SelectList, new { @class = "form-control" })
+                        @* @Html.DropDownList("DonViID", ViewBag.DonViID as SelectList, new { @class = "form-control" })*@
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Tháng </label><span class="cke_required">*</span>
+                        @Html.DropDownList("Thang", ViewBag as SelectList, new { @class = "form-control" })
+                        @* @Html.DropDownList("DonViID", ViewBag.DonViID as SelectList, new { @class = "form-control" })*@
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Mã nhân viên </label> <span class="cke_required">*</span>
+                        <input type="text" required class="form-control" name="NhanSuID">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Họ tên </label><span class="cke_required">*</span>
+                        <input type="text" required class="form-control" name="HoTen">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Thuộc đơn vị </label><span class="cke_required">*</span>
+                        @Html.DropDownList("DonViID", ViewBag as SelectList, new { @class = "form-control" })
+                        @* @Html.DropDownList("DonViID", ViewBag.DonViID as SelectList, new { @class = "form-control" })*@
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Số thự tự trên bảng lương</label>
+                        <input type="text" class="form-control" name="STT">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Hệ số lương cơ bản(HSCB)</label>
+                        <input type="text" class="form-control" name="HSCB">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Hệ số phụ cấp</label>
+                        <input type="text" class="form-control" name="HSPC">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Số tài khoản</label>
+                        <input type="text" class="form-control" name="DTHU">
+                    </div>
+                </div>
+                <div class="center" style="width:30%; float:left;margin-left:30px">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Tỷ lệ lương 3Ps</label>
+                        <input type="text" class="form-control" name="DONGIA">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Hệ số P3 cá nhân</label>
+                        <input type="text" class="form-control" id="HSCN" name="HSCN">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Hệ số BSC bộ phận</label>
+                        <input type="text" class="form-control" id="HSBP">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Số ngày công thực tế</label>
+                        <input type="text" class="form-control" name="NC">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Số ngày nghỉ phép</label>
+                        <input type="text" class="form-control" name="NP">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Tổng ngày công trong tháng</label>
+                        <input type="text" class="form-control" name="TNC">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Lương CS</label>
+                        <input type="text" class="form-control" name="LUONGCS">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Lương GT</label>
+                        <input type="text" class="form-control" name="LUONGGT">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Lương TT</label>
+                        <input type="text" class="form-control" name="LUONGTT">
+                    </div>
+                </div>
+                <div class="right" style="width:30%; float:left; margin-left:30px">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Đơn giá P1 cá nhân</label>
+                        <input type="text" class="form-control" id="CSTL" name="CSTL">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Hệ số KK lãnh đạo(HSGD)</label>
+                        <input type="text" class="form-control" name="HSGD">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Tiền lương TN, BD ứng cứu </label>
+                        <input type="text" class="form-control" name="LUONGTN">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Hệ số KK đơn vị</label>
+                        <input type="text" class="form-control" name="FTTH">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Số tiền nộp cước phí DVVT</label>
+                        <input type="text" class="form-control" name="DIDONG">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Điểm vị trí công việc P1</label>
+                        <input type="text" class="form-control" name="HSLCD">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">BHXH</label>
+                        <input type="text" class="form-control" name="BHXH">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">BHYT</label>
+                        <input type="text" class="form-control" name="BHYT">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">BHTN</label>
+                        <input type="text" class="form-control" name="BHTN">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-danger" id="savePass" onclick="return confirm('Bạn có chắc chắn muốn thêm mới nhân viên không?')">Thêm mới</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+}
+
+

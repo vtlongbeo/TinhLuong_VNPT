@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script>
+        $("#printChuyenKhoan").click(function () {
+            if (confirm("Bạn chắc chắn gửi tin nhắn Thông báo thu nhập Kỳ 1 đến toàn thể CBCNV VTT?")) {
+                if ($("#drpThang").val() > 0 & $("#drpThang").val() > 0) {
+                    window.location.href="/ChuyenKhoanKy1/SendSMS?thang=" + $("#drpThang").val() + "&nam=" + $("#drpNam").val();
+
+                } else {
+                    alert("Phải chọn tháng và năm để gửi tin nhắn chuyển khoản");
+                }
+            }
+        });
+
+    </script>
+}
+<section class="content-header">
+
+    <h1 style="width:20%; float:left">
+        Công nợ
+    </h1>
+    @Html.DropDownList("drpThang", ViewBag as SelectList, "--Chọn tháng--", new { @class = "btn btn-default" })
+    @Html.DropDownList("drpNam", ViewBag as SelectList, "--Chọn năm--", new { @class = "btn btn-default" })
+    <button id="printChuyenKhoan" class="btn btn-primary">Chuyển khoản</button>
+
+
+
+</section>
+
+

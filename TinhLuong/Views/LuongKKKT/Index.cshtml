@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script>
+        $("#printSalaryKK").click(function () {
+            if (confirm("Bạn thực sự muốn in danh sách lương khen thưởng")) {
+                if ($("#drpThang").val() > 0 & $("#drpThang").val() > 0) {
+                    window.open("/LuongKKKT/LuongKKKTReport?thang=" + $("#drpThang").val() + "&nam=" + $("#drpNam").val() + "&type=print", '_blank', "scrollbars=1,resizable=1,height=500,width=700");
+                } else {
+                    alert("Phải chọn tháng và năm để xem dữ liệu lương khen thưởng");
+                }
+            }
+        });
+        $("#caculatorSalaryKK").click(function () {
+            if (confirm("Bạn thực sự muốn tính toán lương khen thưởng")) {
+                if ($("#drpThang").val() > 0 & $("#drpThang").val() > 0) {
+                    $("#divLoading").show();
+                    //$.ajax({
+                    //    type: "POST",
+                    //    url: '/LuongKKKT/LuongKKKTReport', // do not hard code your url's
+                    //    data: {thang:$("#drpThang").val(), nam: $("#drpNam").val(), type:"cal"},
+                    //    datatype: "json", // refer notes below
+                    //    success: function (data) {
+                    //        //$('#result').html(data);
+                    //        window.location.reload();
+                    //        $("#divLoading").hide();
+                    //    }
+                    //});
+                    window.location.href=("/LuongKKKT/LuongKKKTReport?thang=" + $("#drpThang").val() + "&nam=" + $("#drpNam").val() + "&type=cal");
+                   
+                } else {
+                    alert("Phải chọn tháng và năm để trước khi tính toán dữ liệu lương khen thưởng");
+                }
+            }
+        })
+    </script>
+    }
+<section class="content-header">
+
+    <h1 style="width:25%; float:left">
+        Tính lương khuyến khích
+    </h1>
+    @Html.DropDownList("drpThang", ViewBag as SelectList, "--Chọn tháng--", new { @class = "btn btn-default" })
+    @Html.DropDownList("drpNam", ViewBag as SelectList, "--Chọn năm--", new { @class = "btn btn-default" })
+    <button id="caculatorSalaryKK" class="btn btn-primary">Tính lương khen thưởng</button>
+    <button id="printSalaryKK" class="btn btn-primary">In DS khen thưởng</button>
+</section>
+
+<section class="content-header">
+
+    <div class="box"></div>
+</section>
+

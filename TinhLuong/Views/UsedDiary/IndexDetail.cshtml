@@ -1,0 +1,117 @@
+﻿
+
+@using TinhLuongINFO;
+@model List<Log_Login>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script>
+        $(function () {
+            $("#example1").DataTable();
+            //$('#example2').DataTable({
+            //    "paging": true,
+            //    "lengthChange": false,
+            //    "searching": false,
+            //    "ordering": true,
+            //    "info": true,
+            //    "autoWidth": false
+            //});
+        });
+        $('#viewDiary').click(function () {
+            if ($("#startdate").val() && $("#startdate").val()) {
+                window.location.href = "/UsedDiary/IndexDetail?start=" + $("#startdate").val() + "&end=" + $("#enddate").val();
+
+            } else {
+                alert("Vui lòng chọn ngày bắt đầu và ngày kết thúc để xem");
+            }
+        });
+
+    </script>
+    <link href="~/Assets/css/Modal.css" rel="stylesheet" />
+    <style>
+        #example1_filter {
+            float: right;
+        }
+    </style>
+
+}
+<section class="content-header">
+
+    <h1 style="width:20%; float:left">
+        Nhật ký sử dụng
+    </h1>
+    <label>Từ ngày</label>
+    <input type="date" id="startdate" class="btn btn-default" />
+    <label>Đến ngày</label>
+    <input type="date" id="enddate" class="btn btn-default" />
+    <button id="viewDiary" class="btn btn-primary">Xem</button>
+    <ol class="breadcrumb" style="float:left">
+        <li><a href="#"><ijk class="fa fa-dashboard"></ijk> Trang chủ</a></li>
+        <li><a href="#">Nhật ký sử dụng</a></li>
+    </ol>
+
+
+
+
+
+</section>
+<section class="content-header">
+    <div class="box">
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Tài khoản</th>
+                        <th>Thời gian</th>
+                        <th>Ip</th>
+                        <th>Thao tác</th>
+                        <th>Thông tin</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <tr>
+                            <td>@(i + 1)</td>
+                            <td>
+                                @Model[i].UserName
+                            </td>
+                            <td>@Model[i].LoginTimeConvert</td>
+                            <td> @Model[i].IpUser</td>
+                            <td> @Model[i].Action</td>
+                            <td> @Model[i].Mode</td>
+                        </tr>
+                    }
+
+
+                    @*<tfoot>
+                            <tr>
+                                <th>STT</th>
+                                <th>Mã nhân viên</th>
+                                <th>Tên nhân viên</th>
+                                <th>Thuộc đơn vị</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </tfoot>*@
+            </table>
+
+            <div id="myModal" class="modal" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <!-- Modal content-->
+                    <div id="myModalContent">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>
+
+
+

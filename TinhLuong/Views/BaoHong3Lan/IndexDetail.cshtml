@@ -1,0 +1,259 @@
+﻿@using TinhLuongBLL;
+@using System.Data;
+@using TinhLuong.Models;
+@{
+    var credentials = (List<string>)HttpContext.Current.Session[SessionCommon.SESSION_CREDENTIALS];
+}
+@{
+    ViewBag.Title = "IndexDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script>
+        $(function () {
+            $("#example1").DataTable();
+            $("#ChiTieBaoHong3Lan").DataTable();
+        });
+
+        $("#Show").click(function () {
+            var a = $("#drpThang").val(),
+                b = $("#drpNam").val();
+            a != '' & b != '' ? window.location.href = "/baohong3lan/thang-" + a + "-nam-" + b : alert("Bạn phải chọn tháng và năm để xem dữ liệu khuyến khích lắp đặt!")
+        });
+
+        $("#ExportExcelChiTiet").click(function () {
+            var a = $("#drpThang").val(),
+                b = $("#drpNam").val();
+            a != '' & b != '' ? window.location.href = "/baohong3lan/ExportToExcel/thang-" + a + "-nam-" + b + "-type-0" : alert("Bạn phải chọn tháng và năm để xuất dữ liệu!")
+        });
+        $("#ExportExcelTH").click(function () {
+            var a = $("#drpThang").val(),
+                b = $("#drpNam").val();
+            a != '' & b != '' ? window.location.href = "/baohong3lan/ExportToExcel/thang-" + a + "-nam-" + b + "-type-1" : alert("Bạn phải chọn tháng và năm để xuất dữ liệu!")
+        });
+
+        $('#btnChotGiamTruBaoHong').click(function () {
+            if (confirm("Bạn có muốn chốt dữ liệu lắp đặt không?")) {
+                var dataRow = {
+                    'Thang': $('#drpThang').val(),
+                    'Nam': $('#drpNam').val(),
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: "/baohong3lan/ChotSoLieu",
+                    data: dataRow,
+                    success: function (response) {
+                        //alert(response);
+                        location.reload();
+
+                    }
+                });
+            }
+        })
+
+        function XacNhan(x) {
+
+            var dataRow = {
+                'ID': x,
+                'Type': 'XacNhan',
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: "/BaoHong3Lan/XacThuc",
+                data: dataRow,
+                success: function (response) {
+                    alert('Xác nhận thành công');
+                    location.reload();
+                }
+            });
+        };
+
+        function HuyXacNhan(x) {
+
+            var dataRow = {
+                'ID': x,
+                'Type': 'Huy',
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: "/BaoHong3Lan/XacThuc",
+                data: dataRow,
+                success: function (response) {
+                    alert('Hủy xác nhận thành công');
+                    location.reload();
+                }
+            });
+        };
+
+
+        function myFunction1() {
+            if (confirm("Bạn có muốn import dữ liệu không?")) {
+                $("#divLoading").show();
+
+                alert("Chức năng chưa hoàn thành!");
+                //window.location.href = "/baohong3lan/ImportDB";
+            }
+        }
+
+    </script>
+}
+
+
+
+@using (Html.BeginForm())
+{
+    <section class="content-header">
+
+        <h1 style="width:20%; float:left">
+            Lấy dữ liệu giảm trừ báo hỏng 3 lần
+        </h1>
+        <div id="uniquename" style="margin-top:5px">
+            <center>
+                <style>
+                    #LoaiBS {
+                        width: 350px;
+                    }
+                </style>
+
+                @Html.DropDownList("drpThang", ViewBag as SelectList, "--Chọn tháng--", new { @class = "btn btn-default" })
+                @Html.DropDownList("drpNam", ViewBag as SelectList, "--Chọn năm--", new { @class = "btn btn-default" })
+                <button id="Show" class="btn btn-danger">Hiển thị</button>
+                <a id="ExportExcelChiTiet" class="btn btn-primary">Xuất chi tiết</a>
+                <a id="ExportExcelTH" class="btn btn-primary">Xuất dữ liệu tổng hợp</a>
+                @if (credentials.Contains("CHOT_LUONGLAPDAT") || Session[SessionCommon.Username].ToString() == "admin")
+                {
+                    <a id="ImportData" class="btn btn-primary" onclick="myFunction1()">Đẩy số liệu lương vào chương trình</a>
+                    <button id="btnChotGiamTruBaoHong" class="btn btn-danger">Chốt dữ liệu giảm trừ</button>
+                }
+                @*<button id="ExportExcel" class="btn btn-danger">Hiển thị</button>*@
+
+            </center>
+        </div>
+    </section>
+    <section class="content-header">
+        <div class="box">
+            <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist" style="float:left;width:100%;margin-bottom:10px">
+                    <li role="presentation" class="active">
+                        <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Tổng hợp lương giảm trừ </a>
+                    </li>
+                    <li role="presentation" class="">
+                        <a href="#tab_content3" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Chi Tiết</a>
+                    </li>
+
+
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab" style="margin-top:5px;">
+                        <div class="box-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Nhân sự ID</th>
+                                    <th>Họ tên</th>
+                                    <th>Số Lượng</th>
+                                    <th>Tiền giảm trừ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (int i = 0; i < Model.TongHop.Rows.Count; i++)
+                                    {
+
+                                        <tr>
+                                            <td>
+                                                @Model.TongHop.Rows[i]["NhanSuID"]
+                                            </td>
+                                            <td>
+                                                @Model.TongHop.Rows[i]["HoTen"]
+                                            </td>
+                                            <td>
+                                                @Model.TongHop.Rows[i]["SoLuong"]
+                                            </td>
+                                            <td>
+                                                @Model.TongHop.Rows[i]["Luong"]
+                                            </td>
+
+                                        </tr>
+
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab" style="margin-top:5px;">
+                        <div class="box-body">
+                            <table id="ChiTieBaoHong3Lan" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        @*<th>Tháng năm</th>*@
+                                        <th>Họ tên</th>
+                                        <th>Nhân viên</th>
+                                        <th>Thuê bao ID</th>
+                                        <th>Số lần báo hỏng</th>
+                                        <th>Số điện thoại</th>
+                                        <th>Username</th>
+                                        <th>Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (int i = 0; i < Model.ChiTiet.Rows.Count; i++)
+                                    {
+
+                                        <tr>
+                                            @*<td>
+                                                    @Model.ChiTiet.Rows[i]["ThangNam"]
+                                                </td>*@
+                                            <td>
+                                                @Model.ChiTiet.Rows[i]["HoTen"]
+                                            </td>
+                                            <td>
+                                                @Model.ChiTiet.Rows[i]["NhanVienID"]
+                                            </td>
+                                            <td>
+                                                @Model.ChiTiet.Rows[i]["ThueBaoID"]
+                                            </td>
+                                            <td>@Model.ChiTiet.Rows[i]["SoLanBaoHong"]</td>
+                                            <td>@Model.ChiTiet.Rows[i]["SoDienThoai"]</td>
+                                            <td>@Model.ChiTiet.Rows[i]["UserName"]</td>
+                                            <td>
+                                                @if (credentials.Contains("XACNHAN_GIAMTRU") || Session[SessionCommon.Username].ToString() == "admin")
+                                                {
+                                                    if (@Model.ChiTiet.Rows[i]["TinhTrang"].ToString() != "1")
+                                                    {
+                                                        if (@Model.ChiTiet.Rows[i]["XacThuc"].ToString() != "1")
+                                                        {
+                                                            <button type="button" class="btn btn-primary" data-id="@Model.ChiTiet.Rows[i]["ID"]" onclick="XacNhan(@Model.ChiTiet.Rows[i]["ID"])">Xác Thực</button>
+                                                        }
+                                                        else
+                                                        {
+                                                            <button type="button" class="btn btn-danger" data-id="@Model.ChiTiet.Rows[i]["ID"]" onclick="HuyXacNhan(@Model.ChiTiet.Rows[i]["ID"])">Hủy xác thực</button>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="button" class="btn btn-danger" data-id="@Model.ChiTiet.Rows[i]["ID"]">Số liệu đã chốt không thể thao tác</button>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <button type="button" class="btn btn-danger" data-id="@Model.ChiTiet.Rows[i]["ID"]">Bạn không có quyền thao tác</button>
+                                                }
+
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <!-- /.box-body -->
+        </div>
+    </section>
+}

@@ -1,0 +1,154 @@
+﻿@using TinhLuong.Models;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var credentials = (List<string>)HttpContext.Current.Session[SessionCommon.SESSION_CREDENTIALS];
+}
+@section Scripts{
+    <script>
+        $(function () {
+            $("#example1").DataTable();
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false
+            });
+        });
+
+
+    </script>
+    <script>
+
+        $("#viewBS").click(function () {
+            if (confirm("Bạn thực sự muốn xem danh sách tổng hợp")) {
+                if ($("#drpNamBS").val() > 0) {
+                    window.open("/LuongBoSung/ReportBS?nam=" + $("#drpNamBS").val() + "&LoaiBS=" + $("#LoaiBS").val() + "&dv=" + $("#DonViID").val().replace("-", "_") + "&tram=" + $("#Tram").val() + "&type=BS", '_blank', "scrollbars=1,resizable=1,height=500,width=700");
+
+                } else {
+                    alert("Phải chọn tháng và năm để xem danh sách tổng hợp");
+                }
+            }
+        });
+        $("#smsBoSung").click(function () {
+            if (confirm("Bạn có chắc chắn gửi tin nhắn Thông báo Lương Bổ Sung?")) {
+                if ($("#drpNamBS").val() > 0 && $("#drpThang").val() > 0 && $("#LoaiBS").val() > 0) {
+                    window.location.href = ("/LuongBoSung/SendSMSBoSung?thang=" + $("#drpThang").val() + "&nam=" + $("#drpNamBS").val() + "&LoaiBS=" + $("#LoaiBS").val() + "&DienGiai=" + $("#LoaiBS option:selected").text());
+
+                } else {
+                    alert("Phải chọn tháng, năm và loại bổ sung!");
+                }
+            }
+        });
+
+
+        $("#reportCKBS").click(function () {
+            if (confirm("Bạn thực sự muốn xem danh sách tổng hợp")) {
+                if ($("#drpNamBS").val()) {
+                    for (var i = 0; i <= 3; i++) {
+                        if (i == 0) window.open("/LuongBoSung/Report_ChuyenKhoanBS?nam=" + $("#drpNamBS").val() + "&LoaiBS=" + $("#LoaiBS").val() + "&dv=" + $("#DonViID").val().replace("-", "_") + "&tram=" + $("#Tram").val() + "&type=Agri", '_blank', "scrollbars=1,resizable=1,height=500,width=700");
+                        if (i == 1) window.open("/LuongBoSung/Report_ChuyenKhoanBS?nam=" + $("#drpNamBS").val() + "&LoaiBS=" + $("#LoaiBS").val() + "&dv=" + $("#DonViID").val().replace("-", "_") + "&tram=" + $("#Tram").val() + "&type=VC", '_blank', "scrollbars=1,resizable=2,top=50, left=50,height=500,width=700");
+                        if (i == 2) window.open("/LuongBoSung/Report_ChuyenKhoanBS?nam=" + $("#drpNamBS").val() + "&LoaiBS=" + $("#LoaiBS").val() + "&dv=" + $("#DonViID").val().replace("-", "_") + "&tram=" + $("#Tram").val() + "&type=Viettin", '_blank', "scrollbars=1,resizable=3 ,top=100, left=100,height=500,width=700");
+                        if (i == 3) window.open("/LuongBoSung/Report_ChuyenKhoanBS?nam=" + $("#drpNamBS").val() + "&LoaiBS=" + $("#LoaiBS").val() + "&dv=" + $("#DonViID").val().replace("-", "_") + "&tram=" + $("#Tram").val() + "&type=TienMat", '_blank', "scrollbars=1,resizable=3 ,top=150, left=150,height=500,width=700");
+                    }
+                } else {
+                    alert("Phải chọn năm để xem danh sách tổng hợp");
+                }
+            }
+        });
+        function showhide(id) {
+            var e = document.getElementById(id);
+            e.style.display = (e.style.display == 'block') ? 'none' : 'block';
+        }
+
+    </script>
+    <script src="~/Assets/js/LuongBoSung.js"></script>
+    <link href="~/Assets/css/Modal.css" rel="stylesheet" />
+    <style>
+        #example1_filter {
+            float: right;
+        }
+    </style>
+
+}
+<section class="content-header">
+    <h1 style="margin-right:5px;float:left">
+        Thống kê
+    </h1>
+    @if (credentials.Contains("NHANTIN"))
+    {
+        @Html.DropDownList("drpThang", ViewBag as SelectList, "--chọn tháng--", new { @class = "btn btn-default" })
+    }
+    @Html.DropDownList("drpNamBS", ViewBag as SelectList, "--chọn năm--", new { @class = "btn btn-default" })
+    @Html.DropDownList("LoaiBS", ViewBag as SelectList, new { @class = "btn btn-default" })
+    @Html.DropDownList("DonViID", ViewBag as SelectList, new { @class = "btn btn-default" })
+    @Html.DropDownList("Tram", ViewBag as SelectList, new { @class = "btn btn-default" })
+    @*@Html.DropDownList("NhanVien", ViewBag as SelectList, new { @class = "btn btn-default" })*@
+    <div class="clear"></div>
+    <center style="margin-top:5px">
+        @if (credentials.Contains("NHANTIN"))
+        {
+            <button id="smsBoSung" class="btn btn-danger">Nhắn tin Bố sung</button>
+        }
+        <button id="viewBS" class="btn btn-primary">Xem, in bổ sung</button>
+        @if (credentials.Contains("IN_LUONG_CK"))
+        {
+            <button id="reportCKBS" class="btn btn-primary">CK bổ sung</button>
+        }
+
+    </center>
+    <div class="clear"></div>
+    <div id="uniquename" style="display:none;margin-top:5px">
+        <center>
+            <style>
+                #LoaiBS {
+                    width: 300px;
+                }
+
+                #DonViID {
+                    width: 150px;
+                }
+            </style>
+
+
+        </center>
+    </div>
+
+</section>
+<section class="content-header">
+
+    <div class="box"></div>
+</section>
+@*<section class="content-header">
+        <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Mã nhân viên</th>
+                            <th>Tên nhân viên</th>
+                            <th>Thuộc đơn vị</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+
+                <div id="myModal" class="modal" role="dialog">
+                    <div class="modal-dialog modal-lg">
+                        <!-- Modal content-->
+                        <div id="myModalContent">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </section>*@
+

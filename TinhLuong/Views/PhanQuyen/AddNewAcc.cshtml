@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "AddNewAcc";
+    Layout = null;
+}
+<style>
+    .form-group {
+        width: 100%;
+    }
+</style>
+@*<div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Thông tin chi tiết</h4>
+        </div>
+        <div class="modal-body">
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" id="savePass" data-dismiss="modal">Cập nhật</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>*@
+@using (Html.BeginForm("AddNewAcc", "PhanQuyen", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Thông tin chi tiết</h4>
+        </div>
+        <div class="modal-body">
+            <div class="box-body">
+                <div class="left">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Đơn vị</label>
+                        @Html.DropDownList("DonViID", ViewBag as SelectList, new { @class = "form-control" })
+                        @* @Html.DropDownList("DonViID", ViewBag.DonViID as SelectList, new { @class = "form-control" })*@
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Nhóm quyền</label>
+                        @Html.DropDownList("GroupID", ViewBag as SelectList, new { @class = "form-control" })
+                        @* @Html.DropDownList("DonViID", ViewBag.DonViID as SelectList, new { @class = "form-control" })*@
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Tài khoản đăng nhập</label>
+                        <input type="text"  required class="form-control" name="UserName" >
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Họ tên</label>
+                        <input required type="text" class="form-control" name="HoTen">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Ghi chú</label>
+                        <input type="text" class="form-control" name="GhiChu">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-danger" id="savePass" onclick="return confirm('Bạn có chắc chắn muốn thêm mới tài khoản không?')">Cập nhật</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+        </div>
+    </div>
+}
+
+
+

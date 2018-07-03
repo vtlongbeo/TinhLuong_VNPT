@@ -1,0 +1,1 @@
+﻿$("input[type=checkbox]").change(function () { var a = $(this).data("rightid"); $.ajax({ url: "/RoleGroup/changeSttRole", data: { RightID: a }, dataType: "json", type: "POST", success: function (a) { a.status > 0 || (alert("Đã xảy ra lỗi trong quá trình thực thi! Vui lòng thử lại"), window.location.reload()) } }) });

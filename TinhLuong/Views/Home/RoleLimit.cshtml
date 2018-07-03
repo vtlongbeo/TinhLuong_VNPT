@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "RoleLimit";
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>VNPT | Hệ thống lương</title>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</head>
+<body>
+        <div>
+            <p style="color:red; font-size:20px">Bạn không có quyền truy cập chức năng này. Vui lòng liên hệ quản trị để được hỗ trợ</p>
+            <button class="btn btn-danger"onclick="goBack()">Quay lại</button>
+            <a class="btn btn-danger" href="/home"><i class="fa fa-home"></i>Trang chủ</a>
+        </div>
+</body>
+</html>
+
+

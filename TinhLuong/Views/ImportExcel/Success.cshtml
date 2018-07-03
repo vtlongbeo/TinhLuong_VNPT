@@ -1,0 +1,96 @@
+﻿@model System.Data.DataTable
+@using System.Data;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script>
+        $(function () {
+            $("#example1").DataTable();
+        });
+    </script>
+    <script src="~/Assets/js/BangLuongDonVi.js"></script>
+    <link href="~/Assets/css/Modal.css" rel="stylesheet" />
+    <script>
+        function myFunction() {
+            $("#divLoading").show();
+            window.location.href = "/ImportExcel/ImportexcelToDb";
+        }
+        function myFunction1() {
+            if (confirm("Bạn có muốn import dữ liệu không?")) {
+                $("#divLoading").show();
+                window.location.href = "/ImportExcel/ImportDB";
+            }
+        }
+    </script>
+    <style>
+        #example1_filter {
+            float: right;
+        }
+    </style>
+}
+<section class="content-header">
+    <h1 style="width:20%; float:left">
+        Nhập file
+    </h1>
+    <!--<![endif]-->
+    @using (Html.BeginForm("ImportexcelToDb", "ImportExcel", FormMethod.Post, new { enctype = "multipart/form-data", style = "float:left" }))
+    {
+        <input style="float:left; width:auto" class="btn btn-default" type="file" id="file" name="file">
+        <button type="submit" id="Submit" name="Submit" value="Submit" class="btn btn-primary" onclick="myFunction()">Đọc file</button>
+    }
+    <button type="submit" style="margin-left:5px" id="Import" name="Import" value="Import" class="btn btn-primary" onclick="myFunction1()">Import dữ liệu</button>
+</section>
+<section class="content-header">
+    <div class="box">
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Dòng</th>
+                        <th>Năm</th>
+                        <th>Tháng</th>
+                        <th>Nhân sự ID</th>
+                        <th>Tiền ăn ca</th>
+                        <th>Lương kỳ 1</th>
+                        <th>CTP khoán tháng</th>
+                        <th>TT thêm giờ</th>
+                        <th>Chè nước</th>
+                        <th>Công tác phí khác</th>
+                        <th>Bồi dưỡng K3</th>
+                        <th>Thu nhập 1</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        @for (int i = 0; i < Model.Rows.Count; i++)
+                        {
+                            <tr>
+                                <td>@(i + 1)</td>
+                                <td>
+                                    @Model.Rows[i]["Nam"]
+                                </td>
+                                <td>@Model.Rows[i]["Thang"]</td>
+                                <td> @Model.Rows[i]["NhanSuID"]</td>
+                                <td> @(!string.IsNullOrWhiteSpace(Model.Rows[i]["ANCA"].ToString()) ? double.Parse(Model.Rows[i]["ANCA"].ToString()).ToString("N0") : "")</td>
+                                <td> @(!string.IsNullOrWhiteSpace(Model.Rows[i]["LUONGKY1"].ToString()) ? double.Parse(Model.Rows[i]["LUONGKY1"].ToString()).ToString("N0") : "")</td>
+                                <td> @(!string.IsNullOrWhiteSpace(Model.Rows[i]["CTP_KHOANTH"].ToString()) ? double.Parse(Model.Rows[i]["CTP_KHOANTH"].ToString()).ToString("N0") : "")</td>
+                                <td> @(!string.IsNullOrWhiteSpace(Model.Rows[i]["TT_THEMGIO"].ToString()) ? double.Parse(Model.Rows[i]["TT_THEMGIO"].ToString()).ToString("N0") : "")</td>
+                                <td> @(!string.IsNullOrWhiteSpace(Model.Rows[i]["CHENUOC"].ToString()) ? double.Parse(Model.Rows[i]["CHENUOC"].ToString()).ToString("N0") : "")</td>
+                                <td> @(!string.IsNullOrWhiteSpace(Model.Rows[i]["CTP_KHAC"].ToString()) ? double.Parse(Model.Rows[i]["CTP_KHAC"].ToString()).ToString("N0") : "")</td>
+                                <td> @(!string.IsNullOrWhiteSpace(Model.Rows[i]["BOIDUONGK3"].ToString()) ? double.Parse(Model.Rows[i]["BOIDUONGK3"].ToString()).ToString("N0") : "")</td>
+                                <td> @(!string.IsNullOrWhiteSpace(Model.Rows[i]["THUNHAP1"].ToString()) ? double.Parse(Model.Rows[i]["THUNHAP1"].ToString()).ToString("N0") : "")</td>
+                            </tr>
+                        }
+                    
+                  
+
+            </table>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>
+
+
+

@@ -1,0 +1,1350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="SendSMS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="receiver_ID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="receiver_FullName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="receiver_TramID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="receiver_DonViID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sender" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="receiver" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="content" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="listPhieuBaoHongID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendSMSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendSMSResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendStatisticSMS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="receiver_ID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="HoTen" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DonViID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TramID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="TongSoPhieu" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="SoPhieuQuaHan" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="receiver" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendStatisticSMSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendStatisticSMSResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendAlertSMS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="receiver_ID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sender" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sodienthoai" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="loaidichvu" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="receiver" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendAlertSMSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendAlertSMSResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendMaskChangeSMS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ThueBaoID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CommandName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sender" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Type" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendMaskChangeSMSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendMaskChangeSMSResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendDebitSMS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sender" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="receiver_sodienthoai" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="receiver_fullname" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="receiver_tram" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="receiver_donvi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="content" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SendFrom" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendDebitSMSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendDebitSMSResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPortalOTPSMS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="receiver_ID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sender" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPortalOTPSMSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendPortalOTPSMSResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendBroadCastSMS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="receiver_ID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="receiver_FullName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="receiver_TramID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="receiver_DonViID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sender" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="receiver" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="content" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UuTien" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendBroadCastSMSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendBroadCastSMSResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendSMSGiaoPhatTrien">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="receiver_ID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="receiver_FullName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="receiver_TramID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="receiver_DonViID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sender" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="receiver" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SoDienThoai" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoaiDichVu" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ThoiHan" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendSMSGiaoPhatTrienResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendSMSGiaoPhatTrienResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendAlertSalary">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="thang" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="kyluong" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sender" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendAlertSalaryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendAlertSalaryResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendAlertSalaryExt">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="nam" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="thang" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="loai" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="diengiai" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sender" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendAlertSalaryExtResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendAlertSalaryExtResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendSMSAlertReportSys">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="smsBody" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sender" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendSMSAlertReportSysResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendSMSAlertReportSysResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendSMSAlertLimiPrepay">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sodienthoai" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="loaidichvu" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sender" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="smsContent" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendSMSAlertLimiPrepayResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendSMSAlertLimiPrepayResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendOptionSMS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListPhoneNumber" type="tns:ArrayOfPeopleReceived" />
+            <s:element minOccurs="0" maxOccurs="1" name="sender" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPeopleReceived">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PeopleReceived" type="tns:PeopleReceived" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PeopleReceived">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="SoDienThoai" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HoTen" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="smsContent" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DonViID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TramID" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SendOptionSMSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendOptionSMSResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendSMSBy993">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="receiver_sodienthoai" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="content" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendSMSBy993Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendSMSBy993Result" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="int" type="s:int" />
+      <s:element name="boolean" type="s:boolean" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SendSMSSoapIn">
+    <wsdl:part name="parameters" element="tns:SendSMS" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSSoapOut">
+    <wsdl:part name="parameters" element="tns:SendSMSResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendStatisticSMSSoapIn">
+    <wsdl:part name="parameters" element="tns:SendStatisticSMS" />
+  </wsdl:message>
+  <wsdl:message name="SendStatisticSMSSoapOut">
+    <wsdl:part name="parameters" element="tns:SendStatisticSMSResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendAlertSMSSoapIn">
+    <wsdl:part name="parameters" element="tns:SendAlertSMS" />
+  </wsdl:message>
+  <wsdl:message name="SendAlertSMSSoapOut">
+    <wsdl:part name="parameters" element="tns:SendAlertSMSResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendMaskChangeSMSSoapIn">
+    <wsdl:part name="parameters" element="tns:SendMaskChangeSMS" />
+  </wsdl:message>
+  <wsdl:message name="SendMaskChangeSMSSoapOut">
+    <wsdl:part name="parameters" element="tns:SendMaskChangeSMSResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendDebitSMSSoapIn">
+    <wsdl:part name="parameters" element="tns:SendDebitSMS" />
+  </wsdl:message>
+  <wsdl:message name="SendDebitSMSSoapOut">
+    <wsdl:part name="parameters" element="tns:SendDebitSMSResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendPortalOTPSMSSoapIn">
+    <wsdl:part name="parameters" element="tns:SendPortalOTPSMS" />
+  </wsdl:message>
+  <wsdl:message name="SendPortalOTPSMSSoapOut">
+    <wsdl:part name="parameters" element="tns:SendPortalOTPSMSResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendBroadCastSMSSoapIn">
+    <wsdl:part name="parameters" element="tns:SendBroadCastSMS" />
+  </wsdl:message>
+  <wsdl:message name="SendBroadCastSMSSoapOut">
+    <wsdl:part name="parameters" element="tns:SendBroadCastSMSResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSGiaoPhatTrienSoapIn">
+    <wsdl:part name="parameters" element="tns:SendSMSGiaoPhatTrien" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSGiaoPhatTrienSoapOut">
+    <wsdl:part name="parameters" element="tns:SendSMSGiaoPhatTrienResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendAlertSalarySoapIn">
+    <wsdl:part name="parameters" element="tns:SendAlertSalary" />
+  </wsdl:message>
+  <wsdl:message name="SendAlertSalarySoapOut">
+    <wsdl:part name="parameters" element="tns:SendAlertSalaryResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendAlertSalaryExtSoapIn">
+    <wsdl:part name="parameters" element="tns:SendAlertSalaryExt" />
+  </wsdl:message>
+  <wsdl:message name="SendAlertSalaryExtSoapOut">
+    <wsdl:part name="parameters" element="tns:SendAlertSalaryExtResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSAlertReportSysSoapIn">
+    <wsdl:part name="parameters" element="tns:SendSMSAlertReportSys" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSAlertReportSysSoapOut">
+    <wsdl:part name="parameters" element="tns:SendSMSAlertReportSysResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSAlertLimiPrepaySoapIn">
+    <wsdl:part name="parameters" element="tns:SendSMSAlertLimiPrepay" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSAlertLimiPrepaySoapOut">
+    <wsdl:part name="parameters" element="tns:SendSMSAlertLimiPrepayResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendOptionSMSSoapIn">
+    <wsdl:part name="parameters" element="tns:SendOptionSMS" />
+  </wsdl:message>
+  <wsdl:message name="SendOptionSMSSoapOut">
+    <wsdl:part name="parameters" element="tns:SendOptionSMSResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSBy993SoapIn">
+    <wsdl:part name="parameters" element="tns:SendSMSBy993" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSBy993SoapOut">
+    <wsdl:part name="parameters" element="tns:SendSMSBy993Response" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSHttpGetIn">
+    <wsdl:part name="receiver_ID" type="s:string" />
+    <wsdl:part name="receiver_FullName" type="s:string" />
+    <wsdl:part name="receiver_TramID" type="s:string" />
+    <wsdl:part name="receiver_DonViID" type="s:string" />
+    <wsdl:part name="sender" type="s:string" />
+    <wsdl:part name="receiver" type="s:string" />
+    <wsdl:part name="content" type="s:string" />
+    <wsdl:part name="listPhieuBaoHongID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="SendStatisticSMSHttpGetIn">
+    <wsdl:part name="receiver_ID" type="s:string" />
+    <wsdl:part name="HoTen" type="s:string" />
+    <wsdl:part name="DonViID" type="s:string" />
+    <wsdl:part name="TramID" type="s:string" />
+    <wsdl:part name="TongSoPhieu" type="s:string" />
+    <wsdl:part name="SoPhieuQuaHan" type="s:string" />
+    <wsdl:part name="receiver" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendStatisticSMSHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="SendAlertSMSHttpGetIn">
+    <wsdl:part name="receiver_ID" type="s:string" />
+    <wsdl:part name="sender" type="s:string" />
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="sodienthoai" type="s:string" />
+    <wsdl:part name="loaidichvu" type="s:string" />
+    <wsdl:part name="receiver" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendAlertSMSHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="SendMaskChangeSMSHttpGetIn">
+    <wsdl:part name="ThueBaoID" type="s:string" />
+    <wsdl:part name="CommandName" type="s:string" />
+    <wsdl:part name="sender" type="s:string" />
+    <wsdl:part name="Type" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendMaskChangeSMSHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="SendDebitSMSHttpGetIn">
+    <wsdl:part name="sender" type="s:string" />
+    <wsdl:part name="receiver_sodienthoai" type="s:string" />
+    <wsdl:part name="receiver_fullname" type="s:string" />
+    <wsdl:part name="receiver_tram" type="s:string" />
+    <wsdl:part name="receiver_donvi" type="s:string" />
+    <wsdl:part name="content" type="s:string" />
+    <wsdl:part name="SendFrom" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendDebitSMSHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="SendPortalOTPSMSHttpGetIn">
+    <wsdl:part name="receiver_ID" type="s:string" />
+    <wsdl:part name="sender" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPortalOTPSMSHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="SendBroadCastSMSHttpGetIn">
+    <wsdl:part name="receiver_ID" type="s:string" />
+    <wsdl:part name="receiver_FullName" type="s:string" />
+    <wsdl:part name="receiver_TramID" type="s:string" />
+    <wsdl:part name="receiver_DonViID" type="s:string" />
+    <wsdl:part name="sender" type="s:string" />
+    <wsdl:part name="receiver" type="s:string" />
+    <wsdl:part name="content" type="s:string" />
+    <wsdl:part name="UuTien" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendBroadCastSMSHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSGiaoPhatTrienHttpGetIn">
+    <wsdl:part name="receiver_ID" type="s:string" />
+    <wsdl:part name="receiver_FullName" type="s:string" />
+    <wsdl:part name="receiver_TramID" type="s:string" />
+    <wsdl:part name="receiver_DonViID" type="s:string" />
+    <wsdl:part name="sender" type="s:string" />
+    <wsdl:part name="receiver" type="s:string" />
+    <wsdl:part name="UserName" type="s:string" />
+    <wsdl:part name="SoDienThoai" type="s:string" />
+    <wsdl:part name="LoaiDichVu" type="s:string" />
+    <wsdl:part name="ThoiHan" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSGiaoPhatTrienHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="SendAlertSalaryHttpGetIn">
+    <wsdl:part name="thang" type="s:string" />
+    <wsdl:part name="kyluong" type="s:string" />
+    <wsdl:part name="sender" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendAlertSalaryHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="SendAlertSalaryExtHttpGetIn">
+    <wsdl:part name="nam" type="s:string" />
+    <wsdl:part name="thang" type="s:string" />
+    <wsdl:part name="loai" type="s:string" />
+    <wsdl:part name="diengiai" type="s:string" />
+    <wsdl:part name="sender" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendAlertSalaryExtHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSAlertReportSysHttpGetIn">
+    <wsdl:part name="UserName" type="s:string" />
+    <wsdl:part name="smsBody" type="s:string" />
+    <wsdl:part name="sender" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSAlertReportSysHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSAlertLimiPrepayHttpGetIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="sodienthoai" type="s:string" />
+    <wsdl:part name="loaidichvu" type="s:string" />
+    <wsdl:part name="sender" type="s:string" />
+    <wsdl:part name="smsContent" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSAlertLimiPrepayHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSBy993HttpGetIn">
+    <wsdl:part name="receiver_sodienthoai" type="s:string" />
+    <wsdl:part name="content" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSBy993HttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSHttpPostIn">
+    <wsdl:part name="receiver_ID" type="s:string" />
+    <wsdl:part name="receiver_FullName" type="s:string" />
+    <wsdl:part name="receiver_TramID" type="s:string" />
+    <wsdl:part name="receiver_DonViID" type="s:string" />
+    <wsdl:part name="sender" type="s:string" />
+    <wsdl:part name="receiver" type="s:string" />
+    <wsdl:part name="content" type="s:string" />
+    <wsdl:part name="listPhieuBaoHongID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="SendStatisticSMSHttpPostIn">
+    <wsdl:part name="receiver_ID" type="s:string" />
+    <wsdl:part name="HoTen" type="s:string" />
+    <wsdl:part name="DonViID" type="s:string" />
+    <wsdl:part name="TramID" type="s:string" />
+    <wsdl:part name="TongSoPhieu" type="s:string" />
+    <wsdl:part name="SoPhieuQuaHan" type="s:string" />
+    <wsdl:part name="receiver" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendStatisticSMSHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="SendAlertSMSHttpPostIn">
+    <wsdl:part name="receiver_ID" type="s:string" />
+    <wsdl:part name="sender" type="s:string" />
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="sodienthoai" type="s:string" />
+    <wsdl:part name="loaidichvu" type="s:string" />
+    <wsdl:part name="receiver" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendAlertSMSHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="SendMaskChangeSMSHttpPostIn">
+    <wsdl:part name="ThueBaoID" type="s:string" />
+    <wsdl:part name="CommandName" type="s:string" />
+    <wsdl:part name="sender" type="s:string" />
+    <wsdl:part name="Type" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendMaskChangeSMSHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="SendDebitSMSHttpPostIn">
+    <wsdl:part name="sender" type="s:string" />
+    <wsdl:part name="receiver_sodienthoai" type="s:string" />
+    <wsdl:part name="receiver_fullname" type="s:string" />
+    <wsdl:part name="receiver_tram" type="s:string" />
+    <wsdl:part name="receiver_donvi" type="s:string" />
+    <wsdl:part name="content" type="s:string" />
+    <wsdl:part name="SendFrom" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendDebitSMSHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="SendPortalOTPSMSHttpPostIn">
+    <wsdl:part name="receiver_ID" type="s:string" />
+    <wsdl:part name="sender" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendPortalOTPSMSHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="SendBroadCastSMSHttpPostIn">
+    <wsdl:part name="receiver_ID" type="s:string" />
+    <wsdl:part name="receiver_FullName" type="s:string" />
+    <wsdl:part name="receiver_TramID" type="s:string" />
+    <wsdl:part name="receiver_DonViID" type="s:string" />
+    <wsdl:part name="sender" type="s:string" />
+    <wsdl:part name="receiver" type="s:string" />
+    <wsdl:part name="content" type="s:string" />
+    <wsdl:part name="UuTien" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendBroadCastSMSHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSGiaoPhatTrienHttpPostIn">
+    <wsdl:part name="receiver_ID" type="s:string" />
+    <wsdl:part name="receiver_FullName" type="s:string" />
+    <wsdl:part name="receiver_TramID" type="s:string" />
+    <wsdl:part name="receiver_DonViID" type="s:string" />
+    <wsdl:part name="sender" type="s:string" />
+    <wsdl:part name="receiver" type="s:string" />
+    <wsdl:part name="UserName" type="s:string" />
+    <wsdl:part name="SoDienThoai" type="s:string" />
+    <wsdl:part name="LoaiDichVu" type="s:string" />
+    <wsdl:part name="ThoiHan" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSGiaoPhatTrienHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="SendAlertSalaryHttpPostIn">
+    <wsdl:part name="thang" type="s:string" />
+    <wsdl:part name="kyluong" type="s:string" />
+    <wsdl:part name="sender" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendAlertSalaryHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="SendAlertSalaryExtHttpPostIn">
+    <wsdl:part name="nam" type="s:string" />
+    <wsdl:part name="thang" type="s:string" />
+    <wsdl:part name="loai" type="s:string" />
+    <wsdl:part name="diengiai" type="s:string" />
+    <wsdl:part name="sender" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendAlertSalaryExtHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSAlertReportSysHttpPostIn">
+    <wsdl:part name="UserName" type="s:string" />
+    <wsdl:part name="smsBody" type="s:string" />
+    <wsdl:part name="sender" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSAlertReportSysHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSAlertLimiPrepayHttpPostIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="sodienthoai" type="s:string" />
+    <wsdl:part name="loaidichvu" type="s:string" />
+    <wsdl:part name="sender" type="s:string" />
+    <wsdl:part name="smsContent" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSAlertLimiPrepayHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSBy993HttpPostIn">
+    <wsdl:part name="receiver_sodienthoai" type="s:string" />
+    <wsdl:part name="content" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendSMSBy993HttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:portType name="SMSSoap">
+    <wsdl:operation name="SendSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan toi khach hang sau khi hoan thanh xu ly su co</wsdl:documentation>
+      <wsdl:input message="tns:SendSMSSoapIn" />
+      <wsdl:output message="tns:SendSMSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendStatisticSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan toi truong,pho don vi va truong, pho to tram</wsdl:documentation>
+      <wsdl:input message="tns:SendStatisticSMSSoapIn" />
+      <wsdl:output message="tns:SendStatisticSMSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendAlertSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan toi can bo quan ly thue bao khi phat sinh phieu bao hong</wsdl:documentation>
+      <wsdl:input message="tns:SendAlertSMSSoapIn" />
+      <wsdl:output message="tns:SendAlertSMSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendMaskChangeSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan toi can bo quan ly thue bao khi phat thue bao chuyen trang thai</wsdl:documentation>
+      <wsdl:input message="tns:SendMaskChangeSMSSoapIn" />
+      <wsdl:output message="tns:SendMaskChangeSMSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendDebitSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan nhac no toi thue bao di dong tra sau</wsdl:documentation>
+      <wsdl:input message="tns:SendDebitSMSSoapIn" />
+      <wsdl:output message="tns:SendDebitSMSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPortalOTPSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui ma xac thuc OTP dang nhap portal VNPT TNN</wsdl:documentation>
+      <wsdl:input message="tns:SendPortalOTPSMSSoapIn" />
+      <wsdl:output message="tns:SendPortalOTPSMSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendBroadCastSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan tren form tu danh sach</wsdl:documentation>
+      <wsdl:input message="tns:SendBroadCastSMSSoapIn" />
+      <wsdl:output message="tns:SendBroadCastSMSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSGiaoPhatTrien">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan toi nhan vien duoc giao phat trien thue bao</wsdl:documentation>
+      <wsdl:input message="tns:SendSMSGiaoPhatTrienSoapIn" />
+      <wsdl:output message="tns:SendSMSGiaoPhatTrienSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendAlertSalary">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan thong bao luong toi can bo cnv</wsdl:documentation>
+      <wsdl:input message="tns:SendAlertSalarySoapIn" />
+      <wsdl:output message="tns:SendAlertSalarySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendAlertSalaryExt">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan thong bao luong toi can bo cnv phien ban 2 co check tien luong nhan duoc</wsdl:documentation>
+      <wsdl:input message="tns:SendAlertSalaryExtSoapIn" />
+      <wsdl:output message="tns:SendAlertSalaryExtSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSAlertReportSys">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan thong bao neu co lanh dao phan vien tren ht bao cao tuan, thang</wsdl:documentation>
+      <wsdl:input message="tns:SendSMSAlertReportSysSoapIn" />
+      <wsdl:output message="tns:SendSMSAlertReportSysSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSAlertLimiPrepay">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan thong bao toi NVCS TB khi cbi het han tra truoc</wsdl:documentation>
+      <wsdl:input message="tns:SendSMSAlertLimiPrepaySoapIn" />
+      <wsdl:output message="tns:SendSMSAlertLimiPrepaySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendOptionSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin theo ds so dien thoai co san</wsdl:documentation>
+      <wsdl:input message="tns:SendOptionSMSSoapIn" />
+      <wsdl:output message="tns:SendOptionSMSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSBy993">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">993</wsdl:documentation>
+      <wsdl:input message="tns:SendSMSBy993SoapIn" />
+      <wsdl:output message="tns:SendSMSBy993SoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="SMSHttpGet">
+    <wsdl:operation name="SendSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan toi khach hang sau khi hoan thanh xu ly su co</wsdl:documentation>
+      <wsdl:input message="tns:SendSMSHttpGetIn" />
+      <wsdl:output message="tns:SendSMSHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendStatisticSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan toi truong,pho don vi va truong, pho to tram</wsdl:documentation>
+      <wsdl:input message="tns:SendStatisticSMSHttpGetIn" />
+      <wsdl:output message="tns:SendStatisticSMSHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendAlertSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan toi can bo quan ly thue bao khi phat sinh phieu bao hong</wsdl:documentation>
+      <wsdl:input message="tns:SendAlertSMSHttpGetIn" />
+      <wsdl:output message="tns:SendAlertSMSHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendMaskChangeSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan toi can bo quan ly thue bao khi phat thue bao chuyen trang thai</wsdl:documentation>
+      <wsdl:input message="tns:SendMaskChangeSMSHttpGetIn" />
+      <wsdl:output message="tns:SendMaskChangeSMSHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendDebitSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan nhac no toi thue bao di dong tra sau</wsdl:documentation>
+      <wsdl:input message="tns:SendDebitSMSHttpGetIn" />
+      <wsdl:output message="tns:SendDebitSMSHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPortalOTPSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui ma xac thuc OTP dang nhap portal VNPT TNN</wsdl:documentation>
+      <wsdl:input message="tns:SendPortalOTPSMSHttpGetIn" />
+      <wsdl:output message="tns:SendPortalOTPSMSHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendBroadCastSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan tren form tu danh sach</wsdl:documentation>
+      <wsdl:input message="tns:SendBroadCastSMSHttpGetIn" />
+      <wsdl:output message="tns:SendBroadCastSMSHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSGiaoPhatTrien">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan toi nhan vien duoc giao phat trien thue bao</wsdl:documentation>
+      <wsdl:input message="tns:SendSMSGiaoPhatTrienHttpGetIn" />
+      <wsdl:output message="tns:SendSMSGiaoPhatTrienHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendAlertSalary">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan thong bao luong toi can bo cnv</wsdl:documentation>
+      <wsdl:input message="tns:SendAlertSalaryHttpGetIn" />
+      <wsdl:output message="tns:SendAlertSalaryHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendAlertSalaryExt">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan thong bao luong toi can bo cnv phien ban 2 co check tien luong nhan duoc</wsdl:documentation>
+      <wsdl:input message="tns:SendAlertSalaryExtHttpGetIn" />
+      <wsdl:output message="tns:SendAlertSalaryExtHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSAlertReportSys">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan thong bao neu co lanh dao phan vien tren ht bao cao tuan, thang</wsdl:documentation>
+      <wsdl:input message="tns:SendSMSAlertReportSysHttpGetIn" />
+      <wsdl:output message="tns:SendSMSAlertReportSysHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSAlertLimiPrepay">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan thong bao toi NVCS TB khi cbi het han tra truoc</wsdl:documentation>
+      <wsdl:input message="tns:SendSMSAlertLimiPrepayHttpGetIn" />
+      <wsdl:output message="tns:SendSMSAlertLimiPrepayHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSBy993">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">993</wsdl:documentation>
+      <wsdl:input message="tns:SendSMSBy993HttpGetIn" />
+      <wsdl:output message="tns:SendSMSBy993HttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="SMSHttpPost">
+    <wsdl:operation name="SendSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan toi khach hang sau khi hoan thanh xu ly su co</wsdl:documentation>
+      <wsdl:input message="tns:SendSMSHttpPostIn" />
+      <wsdl:output message="tns:SendSMSHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendStatisticSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan toi truong,pho don vi va truong, pho to tram</wsdl:documentation>
+      <wsdl:input message="tns:SendStatisticSMSHttpPostIn" />
+      <wsdl:output message="tns:SendStatisticSMSHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendAlertSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan toi can bo quan ly thue bao khi phat sinh phieu bao hong</wsdl:documentation>
+      <wsdl:input message="tns:SendAlertSMSHttpPostIn" />
+      <wsdl:output message="tns:SendAlertSMSHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendMaskChangeSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan toi can bo quan ly thue bao khi phat thue bao chuyen trang thai</wsdl:documentation>
+      <wsdl:input message="tns:SendMaskChangeSMSHttpPostIn" />
+      <wsdl:output message="tns:SendMaskChangeSMSHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendDebitSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan nhac no toi thue bao di dong tra sau</wsdl:documentation>
+      <wsdl:input message="tns:SendDebitSMSHttpPostIn" />
+      <wsdl:output message="tns:SendDebitSMSHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPortalOTPSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui ma xac thuc OTP dang nhap portal VNPT TNN</wsdl:documentation>
+      <wsdl:input message="tns:SendPortalOTPSMSHttpPostIn" />
+      <wsdl:output message="tns:SendPortalOTPSMSHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendBroadCastSMS">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan tren form tu danh sach</wsdl:documentation>
+      <wsdl:input message="tns:SendBroadCastSMSHttpPostIn" />
+      <wsdl:output message="tns:SendBroadCastSMSHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSGiaoPhatTrien">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan toi nhan vien duoc giao phat trien thue bao</wsdl:documentation>
+      <wsdl:input message="tns:SendSMSGiaoPhatTrienHttpPostIn" />
+      <wsdl:output message="tns:SendSMSGiaoPhatTrienHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendAlertSalary">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan thong bao luong toi can bo cnv</wsdl:documentation>
+      <wsdl:input message="tns:SendAlertSalaryHttpPostIn" />
+      <wsdl:output message="tns:SendAlertSalaryHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendAlertSalaryExt">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan thong bao luong toi can bo cnv phien ban 2 co check tien luong nhan duoc</wsdl:documentation>
+      <wsdl:input message="tns:SendAlertSalaryExtHttpPostIn" />
+      <wsdl:output message="tns:SendAlertSalaryExtHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSAlertReportSys">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan thong bao neu co lanh dao phan vien tren ht bao cao tuan, thang</wsdl:documentation>
+      <wsdl:input message="tns:SendSMSAlertReportSysHttpPostIn" />
+      <wsdl:output message="tns:SendSMSAlertReportSysHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSAlertLimiPrepay">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gui tin nhan thong bao toi NVCS TB khi cbi het han tra truoc</wsdl:documentation>
+      <wsdl:input message="tns:SendSMSAlertLimiPrepayHttpPostIn" />
+      <wsdl:output message="tns:SendSMSAlertLimiPrepayHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSBy993">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">993</wsdl:documentation>
+      <wsdl:input message="tns:SendSMSBy993HttpPostIn" />
+      <wsdl:output message="tns:SendSMSBy993HttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SMSSoap" type="tns:SMSSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SendSMS">
+      <soap:operation soapAction="http://tempuri.org/SendSMS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendStatisticSMS">
+      <soap:operation soapAction="http://tempuri.org/SendStatisticSMS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendAlertSMS">
+      <soap:operation soapAction="http://tempuri.org/SendAlertSMS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMaskChangeSMS">
+      <soap:operation soapAction="http://tempuri.org/SendMaskChangeSMS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendDebitSMS">
+      <soap:operation soapAction="http://tempuri.org/SendDebitSMS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPortalOTPSMS">
+      <soap:operation soapAction="http://tempuri.org/SendPortalOTPSMS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendBroadCastSMS">
+      <soap:operation soapAction="http://tempuri.org/SendBroadCastSMS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSGiaoPhatTrien">
+      <soap:operation soapAction="http://tempuri.org/SendSMSGiaoPhatTrien" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendAlertSalary">
+      <soap:operation soapAction="http://tempuri.org/SendAlertSalary" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendAlertSalaryExt">
+      <soap:operation soapAction="http://tempuri.org/SendAlertSalaryExt" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSAlertReportSys">
+      <soap:operation soapAction="http://tempuri.org/SendSMSAlertReportSys" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSAlertLimiPrepay">
+      <soap:operation soapAction="http://tempuri.org/SendSMSAlertLimiPrepay" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendOptionSMS">
+      <soap:operation soapAction="http://tempuri.org/SendOptionSMS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSBy993">
+      <soap:operation soapAction="http://tempuri.org/SendSMSBy993" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SMSSoap12" type="tns:SMSSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SendSMS">
+      <soap12:operation soapAction="http://tempuri.org/SendSMS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendStatisticSMS">
+      <soap12:operation soapAction="http://tempuri.org/SendStatisticSMS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendAlertSMS">
+      <soap12:operation soapAction="http://tempuri.org/SendAlertSMS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMaskChangeSMS">
+      <soap12:operation soapAction="http://tempuri.org/SendMaskChangeSMS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendDebitSMS">
+      <soap12:operation soapAction="http://tempuri.org/SendDebitSMS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPortalOTPSMS">
+      <soap12:operation soapAction="http://tempuri.org/SendPortalOTPSMS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendBroadCastSMS">
+      <soap12:operation soapAction="http://tempuri.org/SendBroadCastSMS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSGiaoPhatTrien">
+      <soap12:operation soapAction="http://tempuri.org/SendSMSGiaoPhatTrien" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendAlertSalary">
+      <soap12:operation soapAction="http://tempuri.org/SendAlertSalary" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendAlertSalaryExt">
+      <soap12:operation soapAction="http://tempuri.org/SendAlertSalaryExt" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSAlertReportSys">
+      <soap12:operation soapAction="http://tempuri.org/SendSMSAlertReportSys" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSAlertLimiPrepay">
+      <soap12:operation soapAction="http://tempuri.org/SendSMSAlertLimiPrepay" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendOptionSMS">
+      <soap12:operation soapAction="http://tempuri.org/SendOptionSMS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSBy993">
+      <soap12:operation soapAction="http://tempuri.org/SendSMSBy993" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SMSHttpGet" type="tns:SMSHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="SendSMS">
+      <http:operation location="/SendSMS" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendStatisticSMS">
+      <http:operation location="/SendStatisticSMS" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendAlertSMS">
+      <http:operation location="/SendAlertSMS" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMaskChangeSMS">
+      <http:operation location="/SendMaskChangeSMS" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendDebitSMS">
+      <http:operation location="/SendDebitSMS" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPortalOTPSMS">
+      <http:operation location="/SendPortalOTPSMS" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendBroadCastSMS">
+      <http:operation location="/SendBroadCastSMS" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSGiaoPhatTrien">
+      <http:operation location="/SendSMSGiaoPhatTrien" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendAlertSalary">
+      <http:operation location="/SendAlertSalary" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendAlertSalaryExt">
+      <http:operation location="/SendAlertSalaryExt" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSAlertReportSys">
+      <http:operation location="/SendSMSAlertReportSys" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSAlertLimiPrepay">
+      <http:operation location="/SendSMSAlertLimiPrepay" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSBy993">
+      <http:operation location="/SendSMSBy993" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SMSHttpPost" type="tns:SMSHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="SendSMS">
+      <http:operation location="/SendSMS" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendStatisticSMS">
+      <http:operation location="/SendStatisticSMS" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendAlertSMS">
+      <http:operation location="/SendAlertSMS" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMaskChangeSMS">
+      <http:operation location="/SendMaskChangeSMS" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendDebitSMS">
+      <http:operation location="/SendDebitSMS" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPortalOTPSMS">
+      <http:operation location="/SendPortalOTPSMS" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendBroadCastSMS">
+      <http:operation location="/SendBroadCastSMS" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSGiaoPhatTrien">
+      <http:operation location="/SendSMSGiaoPhatTrien" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendAlertSalary">
+      <http:operation location="/SendAlertSalary" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendAlertSalaryExt">
+      <http:operation location="/SendAlertSalaryExt" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSAlertReportSys">
+      <http:operation location="/SendSMSAlertReportSys" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSAlertLimiPrepay">
+      <http:operation location="/SendSMSAlertLimiPrepay" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendSMSBy993">
+      <http:operation location="/SendSMSBy993" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SMS">
+    <wsdl:port name="SMSSoap" binding="tns:SMSSoap">
+      <soap:address location="http://10.23.11.11:82/sms.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SMSSoap12" binding="tns:SMSSoap12">
+      <soap12:address location="http://10.23.11.11:82/sms.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SMSHttpGet" binding="tns:SMSHttpGet">
+      <http:address location="http://10.23.11.11:82/sms.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SMSHttpPost" binding="tns:SMSHttpPost">
+      <http:address location="http://10.23.11.11:82/sms.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

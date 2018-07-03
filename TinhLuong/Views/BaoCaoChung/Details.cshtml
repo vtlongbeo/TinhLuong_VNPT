@@ -1,0 +1,227 @@
+﻿@using System.Data;
+@model System.Data.DataTable
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+<style>
+    .form-group {
+        width: 80%;
+    }
+</style>
+@Html.AntiForgeryToken()
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Thông tin chi tiết</h4>
+    </div>
+    <div class="modal-body">
+        <div class="box-body">
+            <div class="left" style="width:25%; float:left; margin-left:0px">
+                <input type="text" class="form-control hidden" id="NhanSuID" name="NhanSuID" value="@Model.Rows[0]["NhanSuID"].ToString()">
+                <input type="text" hidden="hidden" class="form-control hidden" name="Thang" value="@Model.Rows[0]["Thang"].ToString()">
+                <input type="text" hidden="hidden" class="form-control hidden" name="Nam" value="@Model.Rows[0]["Nam"].ToString()">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Năm</label>
+                    <input type="text" disabled class="form-control" name="Nam" value="@Model.Rows[0]["Nam"].ToString()">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Tháng</label>
+                    <input type="text" class="form-control" name="Thang" value="@Model.Rows[0]["Thang"].ToString()">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Số thự tự trên bảng lương</label>
+                    <input type="text" disabled class="form-control" name="STT" value="@Model.Rows[0]["STT"].ToString()">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Mã nhân viên</label>
+                    <input type="text" disabled class="form-control" name="NhanSuID" value="@Model.Rows[0]["NhanSuID"].ToString()">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Họ tên</label>
+                    <input type="text" class="form-control" name="HoTen" value="@Model.Rows[0]["HoTen"].ToString()">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Thuộc đơn vị</label>
+                    @Html.DropDownList("DonViID", ViewBag as SelectList, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Hệ số lương cơ bản(HSCB)</label>
+                    <input type="text" class="form-control" name="HSCB" value="@Model.Rows[0]["HSCB"].ToString()">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Hệ số phụ cấp</label>
+                    <input type="text" class="form-control" name="HSPC" value="@Model.Rows[0]["HSPC"].ToString()">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Số tài khoản</label>
+                    <input type="text" class="form-control" name="DTHU" value="@Model.Rows[0]["DTHU"].ToString()">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Tỷ lệ lương 3Ps</label>
+                    <input type="text" class="form-control" name="DONGIA" value="@Model.Rows[0]["DONGIA"].ToString()">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">LUONGDTTK</label>
+                    <input type="text" class="form-control" name="LUONGDTTK" value="@Model.Rows[0]["LUONGDTTK"].ToString()">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">LUONGCS</label>
+                    <input type="text" class="form-control" name="LUONGCS" value="@Model.Rows[0]["LUONGCS"].ToString()">
+                </div>
+            </div>
+            <div class="center" style="width:25%; float:left;margin-left:0px">
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Hệ số P3 cá nhân</label>
+                    <input type="text" class="form-control" id="HSCN" name="HSCN" value="@Model.Rows[0]["HSCN"].ToString()">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Hệ số BSC bộ phận</label>
+                    <input type="text" class="form-control" id="HSBP" value="@Model.Rows[0]["HSBP"].ToString()">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Số ngày công thực tế</label>
+                    <input type="text" class="form-control" name="NC" value="@Model.Rows[0]["NC"].ToString()">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Số ngày nghỉ phép</label>
+                    <input type="text" class="form-control" name="NP" value="@Model.Rows[0]["NP"].ToString()">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Số ngày nghỉ việc riêng</label>
+                    <input type="text" class="form-control" name="NR" value="@Model.Rows[0]["NR"].ToString()">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Số ngày nghỉ hưởng BHXH</label>
+                    <input type="text" class="form-control" name="NTS" value="@Model.Rows[0]["NTS"].ToString()">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Tổng ngày công trong tháng</label>
+                    <input type="text" class="form-control" name="TNC" value="@Model.Rows[0]["TNC"].ToString()">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">LUONGTT</label>
+                    <input type="text" class="form-control" name="LUONGTT" value="@Model.Rows[0]["LUONGTT"].ToString()">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">LUONGGT</label>
+                    <input type="text" class="form-control" name="LUONGGT" value="@Model.Rows[0]["LUONGGT"].ToString()">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">LUONGTT_CLNC</label>
+                    <input type="text" class="form-control" name="LUONGTT_CLNC" value="@Model.Rows[0]["LUONGTT_CLNC"].ToString()">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">LUONGPHEP</label>
+                    <input type="text" class="form-control" name="LUONGPHEP" value="@Model.Rows[0]["LUONGPHEP"].ToString()">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Điểm vị trí công việc P1</label>
+                    <input type="text" class="form-control" name="HSLCD" value="@Model.Rows[0]["HSLCD"].ToString()">
+                </div>
+            </div>
+            <div class="right" style="width:25%; float:left; margin-left:0px">
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Mức đánh giá năng lực thực tế P2</label>
+                    <input type="text" class="form-control" name="TYLEHT_GD" value="@Model.Rows[0]["TYLEHT_GD"].ToString()">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Đơn giá P1 cá nhân</label>
+                    <input type="text" class="form-control" id="CSTL" name="CSTL" value="@Model.Rows[0]["CSTL"].ToString()">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Hệ số KK lãnh đạo(HSGD)</label>
+                    <input type="text" class="form-control" name="HSGD" value="@Model.Rows[0]["HSGD"].ToString()">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Tiền lương TN, BD ứng cứu </label>
+                    <input type="text" class="form-control" name="LUONGTN" value="@Model.Rows[0]["LUONGTN"].ToString()">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Tiền lương khác</label>
+                    <input type="text" class="form-control" name="LUONGKHAC" value="@Model.Rows[0]["LUONGKHAC"].ToString()">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Hệ số KK đơn vị</label>
+                    <input type="text" class="form-control" name="FTTH" value="@Model.Rows[0]["FTTH"].ToString()">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Số tiền nộp cước phí DVVT</label>
+                    <input type="text" class="form-control" name="DIDONG" value="@Model.Rows[0]["DIDONG"]">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">CODINH</label>
+                    <input type="text" class="form-control" name="CODINH" value="@Model.Rows[0]["CODINH"]">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">LUONGKTP</label>
+                    <input type="text" class="form-control" name="LUONGKTP" value="@Model.Rows[0]["LUONGKTP"]">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Lương khoán phép</label>
+                    <input type="text" class="form-control" name="LUONGKHOANPHEP" value="@Model.Rows[0]["LUONGKHOANPHEP"]">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Lương PTTB</label>
+                    <input type="text" class="form-control" name="LUONGPTTB" value="@Model.Rows[0]["LUONGPTTB"]">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Lương KDTM</label>
+                    <input type="text" class="form-control" name="LUONGKDTM" value="@Model.Rows[0]["LUONGKDTM"]">
+                </div>
+            </div>
+            <div class="rightLast" style="width:25%; float:left; margin-left:0px">
+                <div class="form-group">
+                    <label for="exampleInputPassword1">BHXH</label>
+                    <input type="text" class="form-control" name="BHXH" value="@Model.Rows[0]["BHXH"]">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">BHYT</label>
+                    <input type="text" class="form-control" name="BHYT" value="@Model.Rows[0]["BHYT"]">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">BHTN</label>
+                    <input type="text" class="form-control" name="BHTN" value="@Model.Rows[0]["BHTN"]">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Khoán nộp</label>
+                    <input type="text" class="form-control" name="KHOANNOP" value="@Model.Rows[0]["KHOANNOP"]">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Tổng lương</label>
+                    <input type="text" class="form-control" name="TONGLUONG" value="@Model.Rows[0]["TONGLUONG"]">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Tiền lương tạm ứng</label>
+                    <input type="text" class="form-control" name="TAMUNG" value="@Model.Rows[0]["TAMUNG"].ToString()">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Thực lĩnh</label>
+                    <input type="text" class="form-control" name="THUCLINH" value="@Model.Rows[0]["THUCLINH"]">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Người thao tác</label>
+                    <input type="text" class="form-control" name="UserName" value="@Model.Rows[0]["UserName"]">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Ngày thao tác</label>
+                    <input type="text" class="form-control" name="NgayUp" value="@Model.Rows[0]["NgayUp"]">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Active</label>
+                    <input type="text" class="form-control" name="Active" value="@Model.Rows[0]["Active"]">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Đảng phí</label>
+                    <input type="text" class="form-control" name="DANGPHI" value="@Model.Rows[0]["DANGPHI"]">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">X</button>
+        </div>
+    </div>
+</div>
+
+
+

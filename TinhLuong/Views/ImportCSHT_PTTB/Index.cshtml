@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script>
+        $("#caculatorDoanhThu").click(function () {
+            if (confirm("Bạn thực sự muốn thực hiện thao tác này")) {
+                if ($("#drpThang").val() > 0 & $("#drpThang").val() > 0) {
+                    $("#divLoading").show();
+                    window.location.href = ("/ImportCSHT_PTTB/LuongReport?thang=" + $("#drpThang").val() + "&nam=" + $("#drpNam").val());
+
+                } else {
+                    alert("Phải chọn tháng và năm để trước khi thực hiện thao tác này");
+                }
+            }
+        })
+    </script>
+}
+<section class="content-header">
+    <h1 style="width:40%;">
+        Nhập lương Tìm kiếm, LĐ thuê bao từ CSHT
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><ijk class="fa fa-home"></ijk> Trang chủ</a></li>
+        <li><a href="#">Nhập lương TK, LDTB</a></li>
+    </ol>
+    <center>
+        @Html.DropDownList("drpThang", ViewBag as SelectList, "--Chọn tháng--", new { @class = "btn btn-default" })
+        @Html.DropDownList("drpNam", ViewBag as SelectList, "--Chọn năm--", new { @class = "btn btn-default" })
+        <button id="caculatorDoanhThu" class="btn btn-primary">Cập nhật doanh thu</button>
+    </center>
+
+</section>
+<section class="content-header">
+    <div class="box"></div>
+</section>

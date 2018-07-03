@@ -1,0 +1,91 @@
+﻿@using System.Data;
+@model DataTable
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script>
+        $(function () {
+            $("#example1").DataTable();
+        });
+    </script>
+    @*<script>
+            $("#caculatorSalaryBS").click(function () {
+                if (confirm("Bạn thực sự muốn lấy dữ liệu để tính lương bổ sung quý")) {
+                    if ($("#drpQuy").val() > 0 & $("#drpNam").val() > 0) {
+                        $("#divLoading").show();
+                        window.location.href = "/TinhLuongBoSungQuy/TinhLuong?thang=" + $("#drpThang").val() + "&nam=" + $("#drpNam").val(); // <- This is what makes it open in a new window.
+                    } else {
+                        alert("Phải chọn tháng và năm để tiến hành tính lương");
+                    }
+                }
+            });
+
+        </script>*@
+}
+
+<section class="content-header">
+
+    <h1 style="width:20%; float:left">
+        Tính lương Kế hoạch
+    </h1>
+    @using (Html.BeginForm("TinhLuong", "TinhLuongKeHoach", FormMethod.Post))
+    {
+        @Html.DropDownList("drpThang", ViewBag as SelectList, "--Chọn tháng--", new { @class = "btn btn-default", @required = "required" })
+        @Html.DropDownList("drpNam", ViewBag as SelectList, "--Chọn năm--", new { @class = "btn btn-default", @required = "required" })
+        @Html.DropDownList("LoaiLuong", ViewBag as SelectList, new { @class = "btn btn-default", @required = "required" })
+        @*@Html.DropDownList("LoaiDV", ViewBag as SelectList, "--Chọn đơn vị--", new { @class = "btn btn-default", @required = "required" })*@
+
+        <input type="text" required class="btn btn-default" placeholder="Nhập số tiền" name="SoTien" value="@ViewBag.SoTien">
+        <button type="submit" class="btn btn-danger" style="" id="savePass" onclick="return confirm('Bạn có chắc chắn muốn thực hiện không?')">Thực hiện</button>
+
+    }
+</section>
+<section class="content-header">
+    <div class="box">
+        <!-- /.box-header -->
+        <div class="box-body">
+         
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tháng</th>
+                            <th>Năm</th>
+                            <th>Đơn vị ID</th>
+                            <th>Điểm phân phối</th>
+                            <th width="120">Điểm phân phối theo HSTL</th>
+                           
+                            <th>QLKH đơn vị</th>
+                            <th>QLKH theo HSTL</th>
+                            <th width="150">Quỹ lương người đứng đầu</th>
+                            <th>Quỹ lương KHDV</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.Rows.Count; i++)
+                        {
+                            <tr>
+                                <td>@(i + 1)</td>
+                                <td>
+                                    @Model.Rows[i]["Thang"]
+                                </td>
+                                <td>@Model.Rows[i]["Nam"]</td>
+                                <td> @Model.Rows[i]["DonViCha"]</td>
+                                <td> @Decimal.Parse(Model.Rows[i]["TongDiemPhanPhoi"].ToString()).ToString("N0")</td>
+                                <td> @Decimal.Parse(Model.Rows[i]["TongDiemPhanPhoi_HSL"].ToString()).ToString("N0")</td>
+                                <td> @Decimal.Parse(Model.Rows[i]["QuyLuongKHDV"].ToString()).ToString("N0")</td>
+                                <td> @Decimal.Parse(Model.Rows[i]["QuyLuongKHDV_HSL"].ToString()).ToString("N0")</td>
+                                <td> @Decimal.Parse(Model.Rows[i]["QuyLuongNDD"].ToString()).ToString("N0")</td>
+                                <td> @Decimal.Parse(Model.Rows[i]["QuyLuongKHDV_TINH"].ToString()).ToString("N0")</td>
+                            </tr>
+                        }
+                </table>
+            
+
+
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>

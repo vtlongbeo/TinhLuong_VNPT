@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script>
+        $("#printSalaryKP").click(function () {
+            if (confirm("Bạn thực sự muốn in danh sách lương khoán phép")) {
+                if ($("#drpThang").val() > 0 & $("#drpThang").val() > 0) {
+                    window.open("/THKhoanPhep/LuongKhoanPhepReport?thang=" + $("#drpThang").val() + "&nam=" + $("#drpNam").val() + "&type=print", '_blank', "scrollbars=1,resizable=1,height=500,width=700");
+
+                } else {
+                    alert("Phải chọn tháng và năm để xem dữ liệu lương khoán phép");
+                }
+            }
+        });
+       
+    </script>
+}
+<section class="content-header">
+
+    <h1 style="width:20%; float:left">
+       DS lương khoán phép
+    </h1>
+    @Html.DropDownList("drpThang", ViewBag as SelectList, "--Chọn tháng--", new { @class = "btn btn-default" })
+    @Html.DropDownList("drpNam", ViewBag as SelectList, "--Chọn năm--", new { @class = "btn btn-default" })
+    <button id="printSalaryKP" class="btn btn-primary">In DS khoán phép</button>
+</section>
+
+<section class="content-header">
+
+    <div class="box"></div>
+</section>
+

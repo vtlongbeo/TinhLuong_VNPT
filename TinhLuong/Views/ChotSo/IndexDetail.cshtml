@@ -1,0 +1,86 @@
+﻿@model System.Data.DataTable
+@using System.Data;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script>
+        $(function () {
+            $("#example1").DataTable();
+        });
+    </script>
+    <script src="~/Assets/js/Cass_ChotSo.js"></script>
+    <link href="~/Assets/css/Modal.css" rel="stylesheet" />
+    <style>
+        #example1_filter {
+            float: right;
+        }
+    </style>
+}
+<section class="content-header">
+    <h1 style="width:15%;float:left">
+        Chốt sổ
+    </h1>
+    @Html.DropDownList("drpThang", ViewBag as SelectList, "--Chọn tháng--", new { @class = "btn btn-default" })
+    @Html.DropDownList("drpNam", ViewBag as SelectList, "--Chọn năm--", new { @class = "btn btn-default" })
+    @Html.DropDownList("DonViID", ViewBag as SelectList, "--Chọn đơn vị--", new { @class = "btn btn-default" })
+    @Html.DropDownList("DmBangLuong", ViewBag as SelectList, new { @class = "btn btn-default" })
+    <button id="viewSalary" class="btn btn-primary">Xem</button>
+    <button id="chotSo" class="btn btn-primary">Mở sổ</button>
+    <input type="checkbox" class="danger" id="checkboxChotSo" style="width:20px; height:20px; text-align:center; margin:5px; background:red" /><label id="lblThongBao"></label>
+
+    @*<ol class="breadcrumb">
+        <li><a href="#"><ijk class="fa fa-home"></ijk> Trang chủ</a></li>
+        <li><a href="#">Chốt sổ</a></li>
+    </ol>*@
+</section>
+<section class="content-header">
+    <div class="box">
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Năm</th>
+                        <th>Tháng</th>
+                        <th>Bảng lương</th>
+                        <th>Đơn vị</th>
+                        <th>Tình trạng</th>
+                        <th>Người cập nhật</th>
+                        <th>Ngày cập nhật</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Rows.Count; i++)
+                    {
+                        <tr>
+                            <td>@(i + 1)</td>
+                            <td>
+                                @Model.Rows[i]["Nam"]
+                            </td>
+                            <td>@Model.Rows[i]["Thang"]</td>
+                            <td> @Model.Rows[i]["BangID"]</td>
+                            <td> @Model.Rows[i]["DonViID"]</td>
+                            @if (Model.Rows[i]["TinhTrang"].ToString() == "1")
+                            {
+                                <td style="font-size:18px; text-align:center"><span class="label label-primary"><a href="" class="sttKey" data-tinhtrang="@Model.Rows[i]["TinhTrang"]" data-thang="@Model.Rows[i]["Thang"]" data-bangid="@Model.Rows[i]["BangID"]" data-nam="@Model.Rows[i]["Nam"]" data-donviid="@Model.Rows[i]["DonViID"]" style="color:white;">Đang khóa </a></span></td>
+
+                            }
+                            else
+                            {
+                                <td style="font-size:18px; text-align:center"><span class="label label-danger"><a href="" class="sttKey" data-tinhtrang="@Model.Rows[i]["TinhTrang"]" data-thang="@Model.Rows[i]["Thang"]" data-bangid="@Model.Rows[i]["BangID"]" data-nam="@Model.Rows[i]["Nam"]" data-donviid="@Model.Rows[i]["DonViID"]" style="color:white;">Đang mở </a></span></td>
+                            }
+                            <td> @Model.Rows[i]["UserName"]</td>
+                            <td> @Model.Rows[i]["NgayUp"]</td>
+                        </tr>
+                    }
+            </table>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>
+
+
+

@@ -1,0 +1,137 @@
+﻿
+
+
+@model System.Data.DataTable
+@using System.Data;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+
+    <link href="~/Assets/css/Modal.css" rel="stylesheet" />
+    <script src="~/Assets/js/QuyLuong.js"></script>
+    <script>
+        $(function () {
+            $("#example1").DataTable();
+            //$('#example2').DataTable({
+            //    "paging": true,
+            //    "lengthChange": false,
+            //    "searching": false,
+            //    "ordering": true,
+            //    "info": true,
+            //    "autoWidth": false
+            //});
+        });
+
+
+    </script>
+    <style>
+        #example1_filter {
+            float: right;
+        }
+    </style>
+
+}
+<section class="content-header">
+
+    <h1 style="width:20%; float:left">
+        Quỹ lương đơn vị
+    </h1>
+
+    @Html.DropDownList("Thang", ViewBag as SelectList, "--Chọn tháng--", new { @class = "btn btn-default" })
+    @Html.DropDownList("Nam", ViewBag as SelectList, "--Chọn năm--", new { @class = "btn btn-default" })
+    <button id="viewQuyLuong" class="btn btn-primary">Xem</button>
+    @Html.ActionLink("Thêm mới", "AddQuyLuong", new { }, new { data_modal_addnew = "", @class = "btn btn-primary" })
+
+
+
+
+
+
+    <ol class="breadcrumb" style="float:left">
+        <li><a href="#"><ijk class="fa fa-home"></ijk> Trang chủ</a></li>
+        <li class="active">Quỹ lương đơn vị</li>
+    </ol>
+
+
+
+
+
+</section>
+<section class="content-header">
+    <div class="box">
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Tháng</th>
+                        <th>Năm</th>
+                        <th>Đơn vị ID</th>
+                        <th>ChatLuongThang</th>
+                        <th>STT</th>
+                        <th>QuyGT_KH</th>
+                        <th>QuyThe_KH</th>
+                        <th>NhanSuID_KD</th>
+                        <th>NhanSuID_VT</th>
+                        <th>HSCN_KD</th>
+                        <th>HSCN_VT</th>
+                        <th>Truong_DD</th>
+                        <th>#</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @for (int i = 0; i < Model.Rows.Count; i++)
+                    {
+                        <tr>
+                            <td>@Model.Rows[i]["Thang"]</td>
+                            <td>
+                                @Model.Rows[i]["Nam"]
+                            </td>
+                            <td>@Model.Rows[i]["DonViID"]</td>
+                            <td> @Model.Rows[i]["ChatLuongThang"]</td>
+                            <td> @Model.Rows[i]["STT"]</td>
+                            <td>@Model.Rows[i]["QuyGT_KH"]</td>
+                            <td> @Model.Rows[i]["QuyThe_KH"]</td>
+                            <td>@Model.Rows[i]["NhanSuID_KD"]</td>
+                            <td> @Model.Rows[i]["NhanSuID_VT"]</td>
+                            <td>@Model.Rows[i]["HSCN_KD"]</td>
+                            <td> @Model.Rows[i]["HSCN_VT"]</td>
+                            <td> @Model.Rows[i]["Truong_DD"]</td>
+                            <td style="width:150px"> 
+
+
+                                @Html.ActionLink("Chi tiết", "Details", new { DonViID = @Model.Rows[i]["DonViID"], Thang = @Model.Rows[i]["Thang"], Nam = @Model.Rows[i]["Nam"] }, new { data_modal = "", @class = "btn btn-primary" })
+                                @Html.ActionLink("Xóa", "DeleteQuyLuong", new { DonViID = @Model.Rows[i]["DonViID"], Thang = @Model.Rows[i]["Thang"], Nam = @Model.Rows[i]["Nam"] }, new { @class = "btn btn-danger", onclick = "return confirm('Bạn có chắc chắn muốn xóa bản ghi này?');" })
+
+
+                            </td>
+                        </tr>
+                    }
+            </table>
+
+            <div id="myModal" class="modal" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <!-- Modal content-->
+                    <div id="myModalContent">
+
+                    </div>
+                </div>
+            </div>
+            <div id="AddNew" class="modal" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <!-- Modal content-->
+                    <div id="myModalContentNew">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>
+
+
+

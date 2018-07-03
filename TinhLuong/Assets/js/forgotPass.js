@@ -1,0 +1,1 @@
+﻿$("#forgotPass").click(function () { $.ajax({ type: "POST", url: "/Login/ForgotPass", contentType: "application/json; charset=utf-8", dataType: "json", success: function (a) { window.location.reload() } }) });

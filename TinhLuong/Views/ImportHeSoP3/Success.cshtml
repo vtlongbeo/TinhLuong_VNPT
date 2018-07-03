@@ -1,0 +1,114 @@
+﻿@model System.Data.DataTable
+@using System.Data;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script>
+        $(function () {
+            $("#example1").DataTable();
+        });
+    </script>
+    <link href="~/Assets/css/Modal.css" rel="stylesheet" />
+    <script>
+        function myFunction() {
+            $("#divLoading").show();
+            window.location.href = "/ImportHeSoP3/ImportexcelToDb";
+        }
+        function myFunction1() {
+            if (confirm("Bạn có muốn import dữ liệu không?")) {
+                $("#divLoading").show();
+                window.location.href = "/ImportHeSoP3/ImportDB";
+            }
+        }
+        function showhide(id) {
+            var e = document.getElementById(id);
+            e.style.display = (e.style.display == 'block') ? 'none' : 'block';
+        }
+
+        $("#getData").click(function () {
+            if ($("#drpNam").val() > 0 && $("#drpThang").val() > 0) {
+                window.location.href = ("/ImportHeSoP3/GetDataBSC?thang=" + $("#drpThang").val() + "&nam=" + $("#drpNam").val());
+            } else {
+                alert("Phải chọn tháng và năm!");
+            }
+
+        });
+    </script>
+    <style>
+        #example1_filter {
+            float: right;
+        }
+    </style>
+
+}
+<section class="content-header">
+
+    <h1 style="width:20%; float:left">
+        Nhập file
+    </h1>
+    <!--<![endif]-->
+    @using (Html.BeginForm("ImportexcelToDb", "ImportHeSoP3", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+    {<center>
+        <input style="float:left; width:50%" class="btn btn-default" type="file" id="file" name="file">
+        <button style="margin-left:-10%" type="submit" id="Submit" name="Submit" value="Submit" class="btn btn-primary" onclick="myFunction()">Đọc file</button>
+        <a id="btnBoSung" onclick="showhide('uniquename')" class="btn btn-danger">Lấy dữ liệu BSC</a>
+    </center>
+    }
+    <div class="clear"></div>
+    <div id="uniquename" style="display:none;margin-top:5px">
+        <center>
+            <style>
+                #LoaiBS {
+                    width: 350px;
+                }
+            </style>
+            @Html.DropDownList("drpThang", ViewBag as SelectList, "--Chọn tháng--", new { @class = "btn btn-default" })
+            @Html.DropDownList("drpNam", ViewBag as SelectList, "--Chọn năm--", new { @class = "btn btn-default" })
+            <button id="getData" class="btn btn-danger">Thực hiện</button>
+
+        </center>
+    </div>
+</section>
+
+<section class="content-header">
+    <div class="box">
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                    <tr>
+                        <th>Dòng</th>
+                        <th>Năm</th>
+                        <th>Tháng</th>
+                        <th>Nhân sự ID</th>
+                        <th>HSBP</th>
+                        <th>HSCN</th>
+                    </tr>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Rows.Count; i++)
+                    {
+                        <tr>
+                            <td>@(i + 1)</td>
+                            <td>
+                                @Model.Rows[i]["Nam"]
+                            </td>
+                            <td>@Model.Rows[i]["Thang"]</td>
+                            <td> @Model.Rows[i]["NhanSuID"]</td>
+                            <td> @Model.Rows[i]["HSBP"]</td>
+                            <td> @Model.Rows[i]["HSCN"]</td>
+                        </tr>
+                    }
+            </table>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>
+
+
+

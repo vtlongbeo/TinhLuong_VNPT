@@ -1,0 +1,71 @@
+﻿
+
+
+@model System.Data.DataTable
+@using System.Data;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script>
+        $(function () {
+            $("#example1").DataTable();
+        });
+    </script>
+    <script src="~/Assets/js/BangLuongDonVi.js"></script>
+    <link href="~/Assets/css/Modal.css" rel="stylesheet" />
+    <script>
+        function myFunction() {
+            $("#divLoading").show();
+            window.location.href = "/ImportExcel/ImportexcelToDb";
+        }
+    </script>
+    <style>
+        #example1_filter {
+            float: right;
+        }
+    </style>
+
+}
+<section class="content-header">
+    <h1 style="width:20%; float:left">
+        Nhập file
+    </h1>
+    <!--<![endif]-->
+    @using (Html.BeginForm("ImportexcelToDb", "ImportExcel", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input style="float:left; width:auto" class="btn btn-default" type="file" id="file" name="file">
+        <button type="submit" id="Submit" name="Submit" value="Submit" class="btn btn-primary" onclick="myFunction()">Đọc file</button>
+    }
+</section>
+<section class="content-header">
+    <div class="box">
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Dòng</th>
+                        <th>Năm</th>
+                        <th>Tháng</th>
+                        <th>Nhân sự ID</th>
+                        <th>Tiền ăn ca</th>
+                        <th>Lương kỳ 1</th>
+                        <th>CTP khoán tháng</th>
+                        <th>TT thêm giờ</th>
+                        <th>Chè nước</th>
+                        <th>Công tác phí khác</th>
+                        <th>Bồi dưỡng K3</th>
+                        <th>Thu nhập 1</th>
+                    </tr>
+                </thead>
+                <tbody>
+            </table>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>
+
+
+

@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script>
+        $("#caculatorSalary3Ps").click(function () {
+            if (confirm("Bạn thực sự muốn chốt sổ và tiến hành tính lương")) {
+                if ($("#drpThang").val() > 0 & $("#drpThang").val() > 0) {
+                    $("#divLoading").show();
+                    window.location.href = "/TinhLuong3Ps/TinhLuong?thang=" + $("#drpThang").val() + "&nam=" + $("#drpNam").val(); // <- This is what makes it open in a new window.
+                } else {
+                    alert("Phải chọn tháng và năm để tiến hành tính lương");
+                }
+            }
+        });
+
+    </script>
+}
+<section class="content-header">
+
+    <h1 style="width:20%; float:left">
+        Tính lương 3Ps
+    </h1>
+    @Html.DropDownList("drpThang", ViewBag as SelectList, "--Chọn tháng--", new { @class = "btn btn-default" })
+    @Html.DropDownList("drpNam", ViewBag as SelectList, "--Chọn năm--", new { @class = "btn btn-default" })
+    <button id="caculatorSalary3Ps" class="btn btn-primary">Tính lương 3Ps</button>
+</section>
+
+<section class="content-header">
+
+    <div class="box"></div>
+</section>
