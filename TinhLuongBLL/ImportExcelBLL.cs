@@ -75,6 +75,11 @@ namespace TinhLuongBLL
         {
             return dal.Update_LUONGKHAC(Nam, Thang, UserName, LuongKhac, NhanSuID,loailuong);
         }
+
+        public bool Update_LUONGKTP(decimal Nam, decimal Thang, string UserName, decimal LuongKhac, string NhanSuID, string loailuong)
+        {
+            return dal.Update_LUONGKTP(Nam, Thang, UserName, LuongKhac, NhanSuID, loailuong);
+        }
         public bool Update_DoanhThuNgoai(decimal Nam, decimal Thang, string UserName, decimal LUONGKDTM, string NhanSuID, string DonViID)
         {
             return dal.Update_DoanhThuNgoai(Nam, Thang, UserName, LUONGKDTM, NhanSuID, DonViID);

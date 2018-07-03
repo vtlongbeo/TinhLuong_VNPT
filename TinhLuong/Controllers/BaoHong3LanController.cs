@@ -154,25 +154,20 @@ namespace TinhLuong.Controllers
             {
                 if (new ImportExcelBLL().GetChotSo(int.Parse(dt.Rows[0]["Thang"].ToString()), int.Parse(dt.Rows[0]["Nam"].ToString()), Session[SessionCommon.DonViID].ToString(), "BangLuong") == false)
                 {
-                    sv.save(Session[SessionCommon.Username].ToString(), "Khuyen khich lap dat->Import khong Thanh Cong- Thang-" + dt.Rows[0]["Thang"].ToString() + "-nam-" + dt.Rows[0]["Nam"].ToString() + "-Do thang luong da chot");
+                    sv.save(Session[SessionCommon.Username].ToString(), "Giảm trừ báo hỏng nhiều lần->Import khong Thanh Cong- Thang-" + dt.Rows[0]["Thang"].ToString() + "-nam-" + dt.Rows[0]["Nam"].ToString() + "-Do thang luong da chot");
                     setAlert("Dữ liệu đã chốt, không tiếp tục cập nhật được!", "error");
                 }
                 else
                 {
-                    new ImportExcelBLL().Delete_KKLD(int.Parse(dt.Rows[0]["Nam"].ToString()), int.Parse(dt.Rows[0]["Thang"].ToString()), Session[SessionCommon.Username].ToString(), 1);
+                    new ImportExcelBLL().Delete_LuongKTP(int.Parse(dt.Rows[0]["Nam"].ToString()), int.Parse(dt.Rows[0]["Thang"].ToString()), Session[SessionCommon.Username].ToString(), 3, Session[SessionCommon.DonViID].ToString());
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
                         try
                         {
                             Thang = dt.Rows[i]["Thang"].ToString();
                             Nam = dt.Rows[i]["Nam"].ToString();
-                            BangLuongLapDat bl = new BangLuongLapDat();
-                            bl.LUONGKKLD = !string.IsNullOrWhiteSpace(dt.Rows[i]["Luong"].ToString()) ? decimal.Parse(dt.Rows[i]["Luong"].ToString()) : 0;
-                            bl.NhanSuID = dt.Rows[i]["NhanSuID"].ToString();
-                            bl.Thang = decimal.Parse(dt.Rows[i]["Thang"].ToString());
-                            bl.Nam = decimal.Parse(dt.Rows[i]["Nam"].ToString());
-                            bl.UserName = Session[SessionCommon.Username].ToString();
-                            var rs = new ImportExcelBLL().UpdateLAPDAT(bl);
+
+                            var rs = new ImportExcelBLL().Update_LUONGKTP(int.Parse(Nam), int.Parse(Thang), Session[SessionCommon.Username].ToString(), int.Parse(dt.Rows[i]["Luong"].ToString()), dt.Rows[i]["NhanSuID"].ToString(), "GiamTru3Lan");
                             if (rs) dem++;
                             else
                             {
@@ -187,21 +182,21 @@ namespace TinhLuong.Controllers
                     }
                     if (dem == dt.Rows.Count)
                     {
-                        sv.save(Session[SessionCommon.Username].ToString(), "Cap Nhat tu file->Khuyen khich lap dat->Import Thanh Cong- Thang-" + dt.Rows[0]["Thang"].ToString() + "-nam-" + dt.Rows[0]["Nam"].ToString());
+                        sv.save(Session[SessionCommon.Username].ToString(), "Giảm trừ báo hỏng nhiều lần->Khuyen khich lap dat->Import Thanh Cong- Thang-" + dt.Rows[0]["Thang"].ToString() + "-nam-" + dt.Rows[0]["Nam"].ToString());
                         setAlert("Import dữ liệu thành công", "success");
-                        bool updateLuongKKKT = new LuongKKKTBLL().UpdateLUONGDTTK(int.Parse(Thang), int.Parse(Nam));
+                        //bool updateLuongKKKT = new LuongKKKTBLL().UpdateLUONGDTTK(int.Parse(Thang), int.Parse(Nam));
                         
                     }
                     else if (0 < dem && dem < dt.Rows.Count)
                     {
                         string msg1 = " Dòng " + rows.ToString() + " import không thành công do lỗi thực thi hoặc không tồn tại nhân sự trong bảng lương của tháng!";
                         setAlertTime(msg1, "error");
-                        sv.save(Session[SessionCommon.Username].ToString(), "Cap Nhat tu file->Khuyen khich lap dat->Import  khong Thanh Cong- Thang-" + dt.Rows[0]["Thang"].ToString() + "-nam-" + dt.Rows[0]["Nam"].ToString() + "-Dong khong import-" + rows);
+                        sv.save(Session[SessionCommon.Username].ToString(), "Giảm trừ báo hỏng nhiều lần->Import  khong Thanh Cong- Thang-" + dt.Rows[0]["Thang"].ToString() + "-nam-" + dt.Rows[0]["Nam"].ToString() + "-Dong khong import-" + rows);
                         
                     }
                     else
                     {
-                        sv.save(Session[SessionCommon.Username].ToString(), "Cap Nhat tu file->Khuyen khich lap dat->Import khong Thanh Cong- Thang-" + dt.Rows[0]["Thang"].ToString() + "-nam-" + dt.Rows[0]["Nam"].ToString());
+                        sv.save(Session[SessionCommon.Username].ToString(), "Giảm trừ báo hỏng nhiều lần->Import khong Thanh Cong- Thang-" + dt.Rows[0]["Thang"].ToString() + "-nam-" + dt.Rows[0]["Nam"].ToString());
                         setAlert("Import dữ liệu không thành công do lỗi thực thi hoặc không tồn tại nhân sự trong bảng lương của tháng", "error");
                     }
 
@@ -215,7 +210,7 @@ namespace TinhLuong.Controllers
 
             
 
-            setAlert("Chức năng chưa hoàn thành!", "error");
+            //setAlert("Chức năng chưa hoàn thành!", "error");
 
 
 

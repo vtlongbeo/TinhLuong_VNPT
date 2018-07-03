@@ -453,6 +453,29 @@ namespace TinhLuongDAL
                 return false;
             }
         }
+
+        public bool Update_LUONGKTP(decimal Nam, decimal Thang, string UserName, decimal LuongKhac, string NhanSuID, string LoaiLuong)
+        {
+            SqlParameter[] parm = new SqlParameter[]
+            {
+                new SqlParameter("@Nam", Nam),
+                new SqlParameter("@Thang",Thang),
+                new SqlParameter("@NhanSuID",NhanSuID),
+                new SqlParameter("@LUONGKTP",LuongKhac),
+                new SqlParameter("@UserName",UserName),
+                new SqlParameter("@Type",LoaiLuong)
+            };
+            try
+            {
+                var rs = SqlHelper.ExecuteNonQuery(SqlHelper.ConnectionString, CommandType.StoredProcedure, "TinhLuongDBTmp_LUONGKTP_Insert", parm);
+                if (rs > 0) return true;
+                else return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         public bool Update_DoanhThuNgoai(decimal Nam, decimal Thang, string UserName, decimal LUONGKDTM, string NhanSuID, string DonViID)
         {
             SqlParameter[] parm = new SqlParameter[]
