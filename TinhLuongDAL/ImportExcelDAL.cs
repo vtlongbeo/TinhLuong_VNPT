@@ -23,7 +23,7 @@ namespace TinhLuongDAL
                 new SqlParameter("@IdDonVi", SqlDbType.VarChar,50),
                 new SqlParameter("@OutPut",  SqlDbType.Int),
             };
-            parm[0].Value = thang;
+            parm[0].Value = thang;  
             parm[1].Value = nam;
             parm[2].Value = BangID;
             parm[3].Value = IdDonVi;

@@ -60,6 +60,22 @@ namespace TinhLuong.Controllers
 
         public ActionResult ImportexcelToDb(HttpPostedFileBase file)
         {
+            int GiaALL = 0,Gia1Phan = 0;
+            DataTable dtGia = new CommonBLL().GetDonGia("LDSPITTER", "");
+            if (dtGia.Rows.Count > 0)
+            {
+                for(int i=0; i< dtGia.Rows.Count; i++)
+                {
+                    if (dtGia.Rows[i]["LoaiCap"].ToString() == "ALL")
+                    {
+                        GiaALL =int.Parse(dtGia.Rows[i]["DonGia"].ToString());
+                    }
+                    else
+                    {
+                        Gia1Phan = int.Parse(dtGia.Rows[i]["DonGia"].ToString());
+                    }
+                }
+            }
 
             if (file != null && file.ContentLength > 0)
             {
@@ -104,7 +120,7 @@ namespace TinhLuong.Controllers
                             drr["Thang"] = int.Parse(dt.Rows[i]["Thang"].ToString());
                             drr["Nam"] = int.Parse(dt.Rows[i]["Nam"].ToString());
                             drr["NhanSuID"] = dt.Rows[i]["NhanSuID"].ToString();
-                            drr["Luong"] = int.Parse(dt.Rows[i]["Spitter1"].ToString())*150000 + (int.Parse(dt.Rows[i]["Spitter2"].ToString())*120000);
+                            drr["Luong"] = int.Parse(dt.Rows[i]["Spitter1"].ToString())*GiaALL + (int.Parse(dt.Rows[i]["Spitter2"].ToString())*Gia1Phan);
                             drr["Spitter1"] = int.Parse(dt.Rows[i]["Spitter1"].ToString());
                             drr["Spitter2"] = int.Parse(dt.Rows[i]["Spitter2"].ToString());
                             dtPHLD.Rows.Add(drr);
@@ -142,7 +158,7 @@ namespace TinhLuong.Controllers
                                 drr["Thang"] = int.Parse(dt.Rows[i]["Thang"].ToString());
                                 drr["Nam"] = int.Parse(dt.Rows[i]["Nam"].ToString());
                                 drr["NhanSuID"] = dt.Rows[i]["NhanSuID"].ToString();
-                                drr["Luong"] = int.Parse(dt.Rows[i]["Spitter1"].ToString()) * 180000 + (int.Parse(dt.Rows[i]["Spitter2"].ToString()) * 140000);
+                                drr["Luong"] = int.Parse(dt.Rows[i]["Spitter1"].ToString()) * GiaALL + (int.Parse(dt.Rows[i]["Spitter2"].ToString()) * Gia1Phan);
                                 drr["Spitter1"] = int.Parse(dt.Rows[i]["Spitter1"].ToString());
                                 drr["Spitter2"] = int.Parse(dt.Rows[i]["Spitter2"].ToString());
                                 dtPHLD.Rows.Add(drr);
@@ -181,7 +197,7 @@ namespace TinhLuong.Controllers
                             drr["Thang"] = int.Parse(dt.Rows[i]["Thang"].ToString());
                             drr["Nam"] = int.Parse(dt.Rows[i]["Nam"].ToString());
                             drr["NhanSuID"] = dt.Rows[i]["NhanSuID"].ToString();
-                            drr["Luong"] = int.Parse(dt.Rows[i]["Spitter1"].ToString()) * 150000 + (int.Parse(dt.Rows[i]["Spitter2"].ToString()) * 120000);
+                            drr["Luong"] = int.Parse(dt.Rows[i]["Spitter1"].ToString()) * GiaALL + (int.Parse(dt.Rows[i]["Spitter2"].ToString()) * Gia1Phan);
                             drr["Spitter1"] = int.Parse(dt.Rows[i]["Spitter1"].ToString());
                             drr["Spitter2"] = int.Parse(dt.Rows[i]["Spitter2"].ToString());
                             dtPHLD.Rows.Add(drr);
