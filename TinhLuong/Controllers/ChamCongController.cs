@@ -14,7 +14,7 @@ namespace TinhLuong.Controllers
     {
         // GET: ChamCong
         SaveLog sv = new SaveLog();
-        string nhansuid = "0";
+        string nhansuid = "1";
         int thang = 1;
         int nam = 2018;
 
